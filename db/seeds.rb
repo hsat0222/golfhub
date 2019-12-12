@@ -365,6 +365,16 @@ UsersRound.create!(
       user_id: "3",
       round_id: "1",
       approval_flag: "0",
+    },
+    {
+      user_id: "1",
+      round_id: "3",
+      approval_flag: "1",
+    },
+    {
+      user_id: "1",
+      round_id: "4",
+      approval_flag: "0",
     }
   ]
 )

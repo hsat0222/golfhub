@@ -2,6 +2,8 @@ class RoundsController < ApplicationController
   before_action :correct_round, only: [:edit, :update]
 
   def myrounds
+    @member_rounds = UsersRound.where(user_id: current_user.id).where(approval_flag: "1")
+    @apply_rounds = UsersRound.where(user_id: current_user.id).where(approval_flag: "0")
   end
 
   def index
@@ -84,23 +86,22 @@ class RoundsController < ApplicationController
 
   def apply #参加申請
     @round = Round.find(params[:id])
-    @users_round = UsersRound.new(users_round_params)
-    @users_roud.user_id = current_user.id
-    @users_roud.round_id = Round.find(params[:id])
-    @users_round.approval_flag = 0
-    @users_round.save
+    @round.users_rounds.create([{user_id: current_user.id, round_id: @round.id, approval_flag: 0}])
     redirect_to round_path(@round)
   end
 
   def approval #参加承認
-    @round = Round.find(params[:id])
-    @users_round = UsersRound.where(user_id: params[:id]).where(round_id: params[:id])
-    @users_round.approval_flag = 1
-    @user.update(user_round_params)
+    @round = Round.find(params[:round_id])
+    @users_round = UsersRound.find_by(user_id: params[:user_id], round_id: @round.id)
+    @users_round.update(approval_flag: 1)
     redirect_to round_path(@round)
   end
 
   def refuse #参加拒否
+    @round = Round.find(params[:round_id])
+    @users_round = UsersRound.find_by(user_id: params[:user_id], round_id: @round.id)
+    @users_round.destroy
+    redirect_to round_path(@round)
   end
 
   private

@@ -62,6 +62,11 @@
       <span>
         <%= c.created_at.strftime("20%y/%m/%d %H:%M") %>
       </span>
+      <% if c.user_id == current_user.id %>
+      <sapn>
+        <%= link_to "削除", comment_path(c.user_id), method: :delete, class:"btn-sm btn-danger"  %>
+      </span>
+      <% end %>
     </div>
     <div>
       <%= c.comment %>
@@ -99,10 +104,10 @@
     </span>
     <% if current_user.id == @master.user_id %>
     <span>
-      <%= link_to "承認", approval_round_path(apply.user_id), method: :patch, class:"btn-sm btn-info" %>
+      <%= link_to "承認", approval_round_path(user_id: apply.user_id, round_id: apply.round_id), method: :patch, class:"btn-sm btn-info" %>
     </span>
     <span>
-      <%= link_to "拒否", refuse_round_path(apply.user_id), method: :delete, class:"btn-sm btn-danger"  %>
+      <%= link_to "拒否", refuse_round_path(user_id: apply.user_id, round_id: apply.round_id), method: :delete, class:"btn-sm btn-danger"  %>
     </span>
     <% end %>
   </div>

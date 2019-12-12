@@ -29,7 +29,7 @@
         <% round.prefecture.pref_region %>
       </div>
       <div>
-        <%= "参加数：" + round.users_rounds.count.to_s %>
+        <%= "参加数：" + round.users_rounds.where(approval_flag: "1").count.to_s %>
       </div>
       <div>
         <%= "定　員：" + round.capacity.to_s %>

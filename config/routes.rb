@@ -25,14 +25,16 @@ Rails.application.routes.draw do
   get '/messages/:id', to: 'messages#show'
   post '/messages/:id', to: 'messages#create'
   #rounds controller, comments controller
-  get '/user/rounds', to: 'rounds#myrounds'
+  get '/myrounds', to: 'rounds#myrounds'
   get '/search/rounds', to: 'rounds#search'
   get '/sort/rounds', to: 'rounds#sort'
   post '/round/:id', to: 'rounds#apply', as: 'apply_round'
   patch '/round/:id', to: 'rounds#approval', as: 'approval_round'
   delete '/round/:id', to: 'rounds#refuse', as: 'refuse_round'
   resources :rounds
-  resources :comments, only: [:new, :create, :destroy]
+  post '/rounds/:id/comment', to: 'comments#create', as: 'comments'
+  get '/rounds/:id/comment/new', to: 'comments#new', as: 'new_comment'
+  delete '/comment/:id', to: 'comments#destroy', as: 'comment'
 
   ###admin###
   namespace :admins do
