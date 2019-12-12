@@ -46,22 +46,37 @@ class RoundsController < ApplicationController
     @round = Round.new(round_params)
     @map = Map.find_by(place: params[:round][:map_attributes][:place])
     if @map
-      @round.map_id = @map.id
+    @round.map_id = @map.id
     else
-      @round.build_map(place: params[:round][:map_attributes][:place])
+    @round.build_map(place: params[:round][:map_attributes][:place])
     end
     @round.users_rounds.build([{user_id: current_user.id, approval_flag: 1}])
     if  @round.save
-      redirect_to round_path(@round)
+    redirect_to round_path(@round)
     else
-      render :new
+    render :new
     end
   end
 
   def edit
+    @round = Round.find(params[:id])
+    @prefecture = Prefecture.all
+    @map = Map.all
   end
 
   def update
+    @round = Round.find(params[:id])
+    @map = Map.find_by(place: params[:round][:map_attributes][:place])
+    if @map
+    @round.map_id = @map.id
+    else
+    @round.build_map(place: params[:round][:map_attributes][:place])
+    end
+    if @round.update(round_params)
+    redirect_to round_path(@round)
+    else
+    render :edit
+    end
   end
 
   def destroy
@@ -91,7 +106,16 @@ class RoundsController < ApplicationController
   private
 
   def round_params
-    params.require(:round).permit(:map_id, :prefecture_id, :round_title, :round_date, :round_intro, :recruitment_sex, :capacity, map_attribute:[:id, :place])
+    params.require(:round).permit(
+                                  :map_id,
+                                  :prefecture_id,
+                                  :round_title,
+                                  :round_date,
+                                  :round_intro,
+                                  :recruitment_sex,
+                                  :capacity,
+                                  map_attribute:[:id, :place]
+                                  )
   end
 
   def users_round_params
@@ -102,7 +126,7 @@ class RoundsController < ApplicationController
     round = Round.find(params[:id])
     master = round.users_rounds.first
     if current_user != master.user
-      redirect_to round_path(round)
+    redirect_to round_path(round)
     end
   end
 
