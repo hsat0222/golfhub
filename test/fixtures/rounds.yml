@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  map_id: 1
+  prefecture_id: 1
+  round_title: MyString
+  round_date: 2019-12-08
+  round_intro: MyString
+  recruitment_sex: 1
+
+two:
+  map_id: 1
+  prefecture_id: 1
+  round_title: MyString
+  round_date: 2019-12-08
+  round_intro: MyString
+  recruitment_sex: 1

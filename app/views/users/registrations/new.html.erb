@@ -1,0 +1,75 @@
+<h3 class="heading">新規登録</h3>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :"メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"パスワード" %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"パスワード(再入力)" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"表示名" %><br />
+    <%= f.text_field :user_name, autofocus: true  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"プロフィール画像" %><br />
+    <%= f.attachment_field :user_image %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"年齢" %><br />
+    <%= f.select :age, ["10代", "20代", "30代", "40代", "50代","60代以上"], prompt: "選択してください" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"お住まいの都道府県" %><br />
+        <%= f.collection_select(:prefecture_id, @prefecture, :id, :pref_name, {prompt: "選択してください"}) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"ご職業" %><br />
+    <%= f.select :user_job, ["会社員", "公務員", "経営者・役員", "自営業", "自由業", "専業主婦", "パート・アルバイト", "学生", "その他"], prompt: "選択してください" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"ゴルフ歴" %><br />
+    <%= f.select :exp_golf, ["1年未満", "1~2年", "2~5年", "5~10年","10年以上"], prompt: "選択してください" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"平均スコア" %><br />
+    <%= f.select :av_score, ["70未満", "71~80", "81~90", "91~100", "101~110", "111~120", "121~130", "131~140", "141以上"], prompt: "選択してください" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"性別" %><br />
+    <%= f.select :user_sex, [["男性",0],["女性",1]], prompt: "選択してください" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"自己紹介" %><br />
+    <%= f.text_area :user_intro, class: "user_intro", size: "50x5"  %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>

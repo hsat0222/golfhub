@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pref_name: MyString
+  pref_region: MyString
+
+two:
+  pref_name: MyString
+  pref_region: MyString

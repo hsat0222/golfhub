@@ -1,0 +1,45 @@
+<h3 class="heading">主催ラウンド作成</h3>
+
+<%= form_for(@round) do |f| %>
+
+  <div class="field">
+    <%= f.label :"日程（必須）" %><br />
+    <%= f.date_field :round_date, selected: Date.today %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"開催都道府県（必須）" %><br />
+        <%= f.collection_select(:prefecture_id, @prefecture, :id, :pref_name, {prompt: "選択してください"}) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"募集性別（必須）" %><br />
+    <%= f.select :recruitment_sex, [["どちらでも",2],["男性",0],["女性",1]], prompt: "選択してください" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"定員（必須）" %><br />
+    <%= f.number_field :capacity, min: 4, max: 100 %>
+  </div>
+
+  <%= f.fields_for :map do |m| %>
+    <div class="field">
+      <%= m.label :"コース（必須）" %><br />
+      <%= m.text_field :place, size: 50, autofocus: true %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :"タイトル（必須）" %><br />
+    <%= f.text_field :round_title, size: 50,autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"詳細（必須）" %><br />
+    <%= f.text_area :round_intro, size: "80x10"  %>
+  </div>
+
+   <div class="actions">
+    <%= f.submit "作成する" %>
+  </div>
+<% end %>

@@ -1,0 +1,110 @@
+<h3 class="heading">ラウンド詳細情報</h3>
+
+<% if current_user.id == @master.user_id %>
+<div>
+  <%= link_to "ラウンド情報編集", edit_round_path, class:"btn btn-success" %>
+</div>
+<% end %>
+
+<div>
+  <%= link_to "ラウンド一覧へ", rounds_path, class:"btn btn-default" %>
+  <% if @user_round.blank? %>
+   <%= link_to "参加申請", apply_round_path(@round.id), method: :post, class:"btn btn-info", "data-confirm" => "このラウンドに参加申請を送りますか？" %>
+  <% end %>
+</div>
+
+<div class="round-info">
+  <div>
+    <%= @round.round_date.strftime("20%y年%m月%d日") %>
+  </div>
+  <div>
+    <%= "場　所：" + @round.prefecture.pref_name %>
+  </div>
+  <div>
+    <%= @round.round_title %>
+  </div>
+  <div>
+    <span>主催者：</span><%= link_to @master.user.user_name, user_path(@master.user_id) %>
+  </div>
+  <div>
+    <%= "コース名：" + @round.map.place %>
+  </div>
+  <div>
+    地図
+  </div>
+  <div>
+    <%= "参加数：" + @members.count.to_s %>
+  </div>
+  <div>
+    <%= "定員数：" + @round.capacity.to_s %>
+  </div>
+  <div>
+    <%= "詳細情報：" + @round.round_intro %>
+  </div>
+</div>
+
+<!--　コメント一覧　-->
+<div class="round-comments">
+  <div class="bg-info">
+    コメント一覧
+    <% if @member.present? %>
+    <span>
+      <%= link_to "新規投稿", new_comment_path, class:"btn btn-primary" %>
+    </span>
+    <% end %>
+  </div>
+  <% @comments.each do |c| %>
+  <div class="comments">
+    <div>
+      <span>
+        投稿者 ：<%= link_to c.user.user_name, user_path(c.user_id) %>
+      </span>
+      <span>
+        <%= c.created_at.strftime("20%y/%m/%d %H:%M") %>
+      </span>
+    </div>
+    <div>
+      <%= c.comment %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<!--　参加者一覧　-->
+<div class="round-members">
+  <div class="bg-info">
+    参加者
+  </div>
+  <% @members.each do |member| %>
+  <div class="member-info">
+    <span>
+      会員名：<%= link_to member.user.user_name, user_path(member.user_id) %>
+    </span>
+  </div>
+  <% end %>
+</div>
+
+<!--　参加希望者一覧　-->
+<div class="round-applicants">
+  <div class="bg-info">
+    参加希望者
+  </div>
+  <% @apply.each do |apply| %>
+  <div>
+    <span>
+      会員名：<%= link_to apply.user.user_name, user_path(apply.user_id) %>
+    </span>
+    <span>
+      <%= apply.created_at.strftime("20%y/%m/%d %H:%M") %>
+    </span>
+    <% if current_user.id == @master.user_id %>
+    <span>
+      <%= link_to "承認", approval_round_path(apply.user_id), method: :patch, class:"btn-sm btn-info" %>
+    </span>
+    <span>
+      <%= link_to "拒否", refuse_round_path(apply.user_id), method: :delete, class:"btn-sm btn-danger"  %>
+    </span>
+    <% end %>
+  </div>
+  <% end %>
+</div>

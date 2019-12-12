@@ -1,0 +1,44 @@
+<h3 class="heading">プロフィール</h3>
+
+<!-- プロフィール -->
+<div class="row pf-area">
+  <div>
+    <% if @user.id == current_user.id %>
+    <%= link_to "プロフィール編集", edit_user_registration_path, class:"btn" %>
+    <% else %>
+    <%= link_to "メッセージを送る", user_messages_path(@user.id), class:"btn" %>
+    <% end %>
+
+  </div>
+  <div class="image col-sm-3 col-xs-3">
+    <%= attachment_image_tag @user, :user_image, :fill, 150, 150, fallback: "no_image.jpg", size:'150x150' %>
+  </div>
+  <div class="intro col-sm-9 col-xs-9">
+    <div>
+      <%= "ニックネーム：　" + @user.user_name %>
+    </div>
+    <% if @user.id == current_user.id %>
+    <div>
+      <%= "メールアドレス：" + @user.email %>
+    </div>
+    <% end %>
+    <div>
+      <%= "年齢：　　　　　" + @user.age %>
+    </div>
+    <div>
+      <%= "お住まい：　　　" + @user.prefecture.pref_name %>
+    </div>
+    <div>
+      <%= "ゴルフ歴：　　　" + @user.exp_golf %>
+    </div>
+    <div>
+      <%= "平均スコア：　　" + @user.av_score %>
+    </div>
+    <div>
+      <%= "ご職業：　　　　" + @user.user_job %>
+    </div>
+    <div>
+      <%= "自己紹介：　　　" + @user.user_intro %>
+    </div>
+  </div>
+</div>

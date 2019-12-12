@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Golfhub</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+
+      <!--　ヘッダー　-->
+      <header>
+        <nav class="navbar navbar-default">
+          <div class="container-fluidas" style="width: 90%;margin:0 auto;">
+            <div class="navbar-header">
+              <%= link_to "Golf hub", root_path, class:"navbar-brand" %>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><%= link_to "Golfhubとは？", home_about_path, class:"active" %></li>
+              <li><%= link_to "ラウンド募集", rounds_path %></li>
+              <% if user_signed_in? %>
+              <li>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"btn btn-secondary navbar-btn" %>
+              </li>
+              <% else %>
+              <li>
+                <%= link_to "新規登録", new_user_registration_path, class:"btn btn-success navbar-btn" %>
+              </li>
+              <li>
+                <%= link_to "ログイン", new_user_session_path, class:"btn btn-primary navbar-btn" %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <!-- サイドバー・コンテンツ -->
+      <div class="row" style="width: 90%;margin:0 auto;">
+      <!-- サイドバー -->
+        <div id="sidebar" class="col-sm-2 col-sm-offset-1 col-xs-2 col-xs-offset-1">
+          <% if user_signed_in? %>
+          <div><%= link_to "Home",user_path(current_user.id) %></div>
+          <div>サイドバー</div>
+          <div>サイドバー</div>
+          <div>サイドバー</div>
+          <div>サイドバー</div>
+          <div>サイドバー</div>
+          <else>
+          <div>サイドバー</div>
+          <div>サイドバー</div>
+          <div>サイドバー</div>
+          <div>サイドバー</div>
+          <div>サイドバー</div>
+          <% end %>
+        </div>
+      <!-- コンテンツ -->
+        <div id="contents" class="col-sm-8 col-xs-8">
+          <%= yield %>
+        </div>
+      </div>
+
+      <!-- フッター -->
+        <div class="row">
+          <div id="footer" class="col-sm-12 col-xs-12">
+          フッター
+          </div>
+        </div>
+
+    </div>
+
+  </body>
+</html>

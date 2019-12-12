@@ -1,0 +1,29 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.new-rounds{
+  margin-top: 40px;
+}
+.round-more{
+  text-align: right;
+  margin-right: 40px;
+}
+
+.new-users{
+  margin-top: 30px;
+}
+
+.user-item{
+  float: left;
+  width: 150px;
+  text-align: center;
+}
+
+.user-item:first-child{
+  margin-left: 30px;
+}
+
+.user-item:nth-last-child(-n+3){
+  margin-left: 50px;
+}
