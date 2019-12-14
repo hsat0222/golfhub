@@ -23,7 +23,7 @@
   </div>
 
   <%= f.fields_for :map do |m| %>
-    <div class="field">
+    <div id="map-search" class="field">
       <%= m.label :"コース" %><br />
       <%= m.text_field :place, size: 50, autofocus: true %>
     </div>
@@ -54,14 +54,9 @@
 }
 </style>
 
-<script>
-  let mapInstance
 
-  function initMap(){
-    mapInstance = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-    });
-  }
+<script>
+
+
 </script>
 <script src="https://maps.googleapis.com/maps/api&/js?key=AIzaSyBHFvolQTeWeVVGNQ8DTP3FHRbNuxEAgSI&callback=initMap" async defer></script>

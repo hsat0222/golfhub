@@ -40,12 +40,6 @@ class RoundsController < ApplicationController
 
     @lat = @round.map.latitude
     @lng = @round.map.longitude
-    # results = Geocoder.search(place: @map.place)
-    # @latlng = results.first.coordinates
-    # # これでmap.js.erbで、経度緯度情報が入った@latlngを使える。
-    # respond_to do |format|
-    #   format.js
-    # end
   end
 
   def new
@@ -55,7 +49,10 @@ class RoundsController < ApplicationController
   end
 
   def map
-    @map = Map.all
+    results = Geocoder.search(params[:place])
+    @latlng = results.first.coordinates
+    # これでmap.js.erbで、経度緯度情報が入った@latlngを使える。
+
     respond_to do |format|
       format.js
     end

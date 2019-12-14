@@ -7,4 +7,5 @@ class Round < ApplicationRecord
   belongs_to :prefecture
   belongs_to :map
   accepts_nested_attributes_for :map
+
 end

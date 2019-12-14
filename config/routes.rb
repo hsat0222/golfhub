@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   patch '/round/:id', to: 'rounds#approval', as: 'approval_round'
   delete '/round/:id', to: 'rounds#refuse', as: 'refuse_round'
   resources :rounds
-  get '/map_request', to: 'rounds#map', as: 'map_request'
+  get '/maprequest', to: 'rounds#map', as: 'map_request'
   #comments controller
   post '/rounds/:id/comment', to: 'comments#create', as: 'comments'
   get '/rounds/:id/comment/new', to: 'comments#new', as: 'new_comment'
