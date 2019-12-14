@@ -207,16 +207,24 @@ Prefecture.create!(
 Map.create!(
   [
     {
-      place: "DMMカントリークラブ",
-    },
-    {
-      place: "関東国際DMMゴルフクラブ",
+      place: "井原ゴルフ倶楽部",
+      longitude: "133.30538", #経度
+      latitude: "34.37146", #緯度
     },
     {
       place: "笠岡カントリークラブ",
+      longitude: "133.33189", #経度
+      latitude: "34.34437", #緯度
     },
     {
-      place: "横浜ゴルフクラブ",
+      place: "船橋カントリー倶楽部",
+      longitude: "140.05150", #経度
+      latitude: "35.48056", #緯度
+    },
+    {
+      place: "中山カントリークラブ",
+      longitude: "140.04525", #経度
+      latitude: "35.45363", #緯度
     },
   ]
 )

@@ -30,18 +30,35 @@ class RoundsController < ApplicationController
   def show
     @round = Round.find(params[:id])
     @master = @round.users_rounds.first
+    if user_signed_in?
     @user_round = UsersRound.where(user_id: current_user.id).where(round_id: @round.id)
-    @comments = Comment.where(round_id: @round.id)
     @member = UsersRound.where(user_id: current_user.id).where(round_id: @round.id).where(approval_flag: "1")
+    end
+    @comments = Comment.where(round_id: @round.id)
     @members = UsersRound.where(round_id: @round.id).where(approval_flag: "1")
     @apply = UsersRound.where(round_id: @round.id).where(approval_flag: "0")
+
+    @lat = @round.map.latitude
+    @lng = @round.map.longitude
+    # results = Geocoder.search(place: @map.place)
+    # @latlng = results.first.coordinates
+    # # これでmap.js.erbで、経度緯度情報が入った@latlngを使える。
+    # respond_to do |format|
+    #   format.js
+    # end
   end
 
   def new
     @round = Round.new
     @round.build_map
     @prefecture = Prefecture.all
+  end
+
+  def map
     @map = Map.all
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
@@ -82,6 +99,9 @@ class RoundsController < ApplicationController
   end
 
   def destroy
+    @round = find(params[:id])
+    @round.destroy
+    redirect_to rounds_path
   end
 
   def apply #参加申請

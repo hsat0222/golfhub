@@ -18,6 +18,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :"プロフィール画像" %><br />
+    <%= f.attachment_field :user_image %>
+  </div>
+
+  <div class="field">
     <%= f.label :"年齢" %><br />
     <%= f.select :age, ["10代", "20代", "30代", "40代", "50代","60代以上"] %>
   </div>
@@ -79,4 +84,4 @@
 
 <%= link_to "戻る", :back, class:"btn btn-default" %><br />
 
-<%= link_to "退会する", user_unsubscribe_path, class:"btn btn-danger" %>
+<%= link_to "退会する", unsubscribe_path(current_user), class:"btn btn-danger" %>

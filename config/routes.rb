@@ -17,14 +17,14 @@ Rails.application.routes.draw do
   get '/about', to: 'home#about'
   #users controller
   get '/user/:id', to: 'users#show', as: 'user'
-  get '/user/unsubscribe', to: 'users#unsubscribe'
+  get '/user/:id/unsubscribe', to: 'users#unsubscribe', as:'unsubscribe'
   patch '/user/:id', to: 'users#retire', as: 'retire'
-  get '/user/complete', to: 'users#complete'
+  get '/user/retire/complete', to: 'users#complete', as: 'retire_complete'
   #message controller
-  get '/user/messages', to: 'messages#index'
+  get '/user/:id/messages', to: 'messages#index', as:'user_messages'
   get '/messages/:id', to: 'messages#show'
   post '/messages/:id', to: 'messages#create'
-  #rounds controller, comments controller
+  #rounds controller
   get '/myrounds', to: 'rounds#myrounds'
   get '/search/rounds', to: 'rounds#search'
   get '/sort/rounds', to: 'rounds#sort'
@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   patch '/round/:id', to: 'rounds#approval', as: 'approval_round'
   delete '/round/:id', to: 'rounds#refuse', as: 'refuse_round'
   resources :rounds
+  get '/map_request', to: 'rounds#map', as: 'map_request'
+  #comments controller
   post '/rounds/:id/comment', to: 'comments#create', as: 'comments'
   get '/rounds/:id/comment/new', to: 'comments#new', as: 'new_comment'
   delete '/comment/:id', to: 'comments#destroy', as: 'comment'

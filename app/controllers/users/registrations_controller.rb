@@ -26,10 +26,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  def after_update_path_for(resource)
-    user_path(current_user)
-  end
-
   # DELETE /resource
   # def destroy
   #   super
@@ -43,6 +39,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
+
+  def after_sign_up_path_for(resource)
+    home_about_path
+  end
+
+  def after_update_path_for(resource)
+    user_path(current_user)
+  end
 
   protected
 

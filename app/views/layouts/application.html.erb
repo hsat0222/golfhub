@@ -10,8 +10,8 @@
   </head>
 
   <body>
-    <div class="container-fluid">
 
+    <div class="container-fluid">
       <!--　ヘッダー　-->
       <header>
         <nav class="navbar navbar-default">
@@ -53,13 +53,14 @@
           </div>
           <% end %>
         </div>
-      <!-- コンテンツ -->
+        <!-- コンテンツ -->
         <div id="contents" class="col-sm-8 col-xs-8">
           <%= yield %>
         </div>
+        <div class="push"></div>
       </div>
 
-      <!-- フッター -->
+        <!-- フッター -->
         <div class="row">
           <div id="footer" class="col-sm-12 col-xs-12">
           フッター
