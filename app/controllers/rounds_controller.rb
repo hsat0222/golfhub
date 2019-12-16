@@ -8,22 +8,22 @@ class RoundsController < ApplicationController
 
   def index
     @rounds = Round.all.order("round_date ASC").page(params[:page]).per(10)
-    @pref_region = Prefecture.find([1,8,14,23,30,36,40,48])
+    @regions = Region.all
     @now = Time.current
-    @map = Map.all
   end
 
   def search
-    @prefecture = Prefecture.where("pref_region LIKE ?", "%#{params[:pref_region]}%")
-    @pref_region = Prefecture.find([1,8,14,23,30,36,40,48])
+    @region = Region.where("id LIKE ?", "%#{params[:region_id]}%")
     @rounds = []
-      @prefecture.each do |pref|
-          pref.rounds.each do |round|
-              @rounds << round
+      @region.each do |region|
+        region.prefectures.each do |prefecture|
+          prefecture.rounds.each do |round|
+            @rounds << round
           end
+        end
       end
     @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
-    @map = Map.all
+    @regions = Region.all
     render :index
   end
 

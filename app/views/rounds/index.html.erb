@@ -7,7 +7,7 @@
 <div class="round-search">
   <div>絞り込み検索</div>
     <%= form_tag({controller: "rounds", action: "search" }, {method: "get"}) do %>
-      <%= select_tag(:region, options_from_collection_for_select(@pref_region, :pref_region, :pref_region)) %>
+      <%= select_tag(:region_id, options_from_collection_for_select(@regions, :id, :region_name)) %>
       <%= submit_tag "検索" %>
     <% end %>
 </div>
