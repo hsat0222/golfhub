@@ -31,9 +31,11 @@
     <%= @lat %>
     <%= @lng %>
   </div>
+  <% if @lat.present? %>
   <div>
     <div id='map'></div>
   </div>
+  <% end %>
   <div>
     <%= "参加数：" + @members.count.to_s %>
   </div>
@@ -45,80 +47,78 @@
   </div>
 </div>
 
-<!--　コメント一覧　-->
-<div class="round-comments">
-  <div class="bg-info">
-    コメント一覧
-    <% if @member.present? %>
-    <span>
-      <%= link_to "新規投稿", new_comment_path, class:"btn btn-primary" %>
-    </span>
+<!-- タブ・メニュー -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#round-comments" data-toggle="tab">コメント掲示板</a></li>
+  <li><a href="#round-members" data-toggle="tab">参加者一覧</a></li>
+  <% if current_user.id == @master.user_id %>
+  <li><a href="#round-applicants" data-toggle="tab">参加希望者</a></li>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <!--　コメント一覧　-->
+  <div id="round-comments" class="tab-pane active">
+      <% if @member.present? %>
+      <span>
+        <%= link_to "新規投稿", new_comment_path(@round.id), class:"btn btn-primary" %>
+      </span>
+      <% end %>
+    <% @comments.each do |c| %>
+    <div class="comments">
+      <div>
+        <span>
+          投稿者 ：<%= link_to c.user.user_name, user_path(c.user_id) %>
+        </span>
+        <span>
+          <%= c.created_at.strftime("20%y/%m/%d %H:%M") %>
+        </span>
+        <% if c.user_id == current_user.id %>
+        <sapn>
+          <%= link_to "削除", comment_path(c.id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
+        </span>
+        <% end %>
+      </div>
+      <div>
+        <%= c.comment %>
+      </div>
+    </div>
     <% end %>
   </div>
-  <% @comments.each do |c| %>
-  <div class="comments">
+  <!--　参加者一覧　-->
+  <div id="round-members" class="tab-pane">
+    <% @members.each do |member| %>
+    <div class="member-info">
+      <span>
+        会員名：<%= link_to member.user.user_name, user_path(member.user_id) %>
+      </span>
+    </div>
+    <% end %>
+  </div>
+  <!--　参加希望者一覧　-->
+  <div id="round-applicants" class="tab-pane">
+    <% @apply.each do |apply| %>
     <div>
       <span>
-        投稿者 ：<%= link_to c.user.user_name, user_path(c.user_id) %>
+        会員名：<%= link_to apply.user.user_name, user_path(apply.user_id) %>
       </span>
       <span>
-        <%= c.created_at.strftime("20%y/%m/%d %H:%M") %>
+        <%= apply.created_at.strftime("20%y/%m/%d %H:%M") %>
       </span>
-      <% if c.user_id == current_user.id %>
-      <sapn>
-        <%= link_to "削除", comment_path(c.user_id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
+      <% if current_user.id == @master.user_id %>
+      <span>
+        <%= link_to "承認", approval_round_path(user_id: apply.user_id, round_id: apply.round_id), method: :patch, class:"btn-sm btn-info", "data-confirm" => "承認しますか？" %>
+      </span>
+      <span>
+        <%= link_to "拒否", refuse_round_path(user_id: apply.user_id, round_id: apply.round_id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に拒否してもよろしいですか？" %>
       </span>
       <% end %>
     </div>
-    <div>
-      <%= c.comment %>
-    </div>
-  </div>
-  <% end %>
-</div>
-
-<!--　参加者一覧　-->
-<div class="round-members">
-  <div class="bg-info">
-    参加者
-  </div>
-  <% @members.each do |member| %>
-  <div class="member-info">
-    <span>
-      会員名：<%= link_to member.user.user_name, user_path(member.user_id) %>
-    </span>
-  </div>
-  <% end %>
-</div>
-
-<!--　参加希望者一覧　-->
-<div class="round-applicants">
-  <div class="bg-info">
-    参加希望者
-  </div>
-  <% @apply.each do |apply| %>
-  <div>
-    <span>
-      会員名：<%= link_to apply.user.user_name, user_path(apply.user_id) %>
-    </span>
-    <span>
-      <%= apply.created_at.strftime("20%y/%m/%d %H:%M") %>
-    </span>
-    <% if current_user.id == @master.user_id %>
-    <span>
-      <%= link_to "承認", approval_round_path(user_id: apply.user_id, round_id: apply.round_id), method: :patch, class:"btn-sm btn-info", "data-confirm" => "承認しますか？" %>
-    </span>
-    <span>
-      <%= link_to "拒否", refuse_round_path(user_id: apply.user_id, round_id: apply.round_id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に拒否してもよろしいですか？" %>
-    </span>
     <% end %>
   </div>
-  <% end %>
+
 </div>
 
-<!-- <input type="hidden" class= "lat" name="lat", value="<%= @lat %>" >
-<input type="hidden" class= "lng" name="lng", value="<%= @lng %>" >
- -->
 <!-- googlemap -->
 <style>
 #map{
@@ -127,21 +127,21 @@
 </style>
 
 <script>
-  // var pos = {lat: Number($(".lat").val()), lng: Number($(".lng").val())}
   var pos = {lat: <%= @lat %>, lng: <%= @lng %>}
   console.log(pos);
 
   function initMap(){
     mapInstance = new google.maps.Map(document.getElementById('map'), {
     center: pos,
-    zoom: 14
+    zoom: 15
     });
 
-    let marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
       map: mapInstance,
       position: pos,
       animation: google.maps.Animation.DROP
     });
+
   }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHFvolQTeWeVVGNQ8DTP3FHRbNuxEAgSI&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&language&callback=initMap" async defer></script>

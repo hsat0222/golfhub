@@ -4,11 +4,11 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @round = Round.find(params[:id])
-    # @comment = Comment.new(comment_params)
-    @round.comments.build([{user_id: current_user.id, round_id: @round.id}])
+    @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+    @comment.round_id = params[:id]
     if  @comment.save
-    redirect_to round_path(@round)
+    redirect_to round_path(Round.find(params[:id]))
     else
     render :new
     end
@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
   def destroy
     comment = Comment.find(params[:id])
     comment.destroy
-    redirect_to round_path(comment.round)
+    redirect_to round_path(comment.round.id)
   end
 
   private

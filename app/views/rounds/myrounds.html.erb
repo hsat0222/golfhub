@@ -15,7 +15,7 @@
       <%= "場　所：" + master.round.prefecture.pref_name %>
     </div>
     <div>
-      <%= "参加数：" + master.round.users_rounds.count.to_s %>
+      <%= "参加数：" + master.round.users_rounds.where(approval_flag: "1").count.to_s %>
     </div>
     <div>
       <%= "定　員：" + master.round.capacity.to_s %>
@@ -31,8 +31,11 @@
     <div>
       <%= "主催者　：" + master.round.users_rounds.first.user.user_name %>
     </div>
-    <div>
-      <%= "内　容　：" + master.round.round_intro.truncate(50, omission: '...') %>
+    <div class="col-sm-2">
+      内　容：
+    </div>
+    <div class="col-sm-10">
+      <%= master.round.round_intro.truncate(50, omission: '...') %>
     </div>
   </div>
 </div>

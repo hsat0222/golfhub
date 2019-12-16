@@ -7,21 +7,24 @@ class RoundsController < ApplicationController
   end
 
   def index
-    @rounds = Round.all.order("id DESC").page(params[:page]).per(2)
+    @rounds = Round.all.order("round_date ASC").page(params[:page]).per(10)
     @pref_region = Prefecture.find([1,8,14,23,30,36,40,48])
+    @now = Time.current
+    @map = Map.all
   end
 
   def search
-    # @prefecture = Prefecture.where("pref_region LIKE ?", "%#{params[:pref_region]}%")
-    # @rounds = []
-    #   @prefecture.each do |pref|
-    #       pref.rounds.each do |round|
-    #           @rounds << round
-    #       end
-    #   end
-    # @users_rounds = @rounds.where(:approval_flag == 1).count
-    # @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(2)
-    # render :index
+    @prefecture = Prefecture.where("pref_region LIKE ?", "%#{params[:pref_region]}%")
+    @pref_region = Prefecture.find([1,8,14,23,30,36,40,48])
+    @rounds = []
+      @prefecture.each do |pref|
+          pref.rounds.each do |round|
+              @rounds << round
+          end
+      end
+    @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
+    @map = Map.all
+    render :index
   end
 
   def sort
@@ -40,6 +43,7 @@ class RoundsController < ApplicationController
 
     @lat = @round.map.latitude
     @lng = @round.map.longitude
+    @place = @round.map.place
   end
 
   def new
@@ -49,13 +53,13 @@ class RoundsController < ApplicationController
   end
 
   def map
-    results = Geocoder.search(params[:place])
-    @latlng = results.first.coordinates
-    # これでmap.js.erbで、経度緯度情報が入った@latlngを使える。
+    # results = Geocoder.search(params[:place])
+    # @latlng = results.first.coordinates
+    # # これでmap.js.erbで、経度緯度情報が入った@latlngを使える。
 
-    respond_to do |format|
-      format.js
-    end
+    # respond_to do |format|
+    #   format.js
+    # end
   end
 
   def create
@@ -80,7 +84,7 @@ class RoundsController < ApplicationController
     @map = Map.all
   end
 
-  def update
+  def update #ラウンド情報編集
     @round = Round.find(params[:id])
     @map = Map.find_by(place: params[:round][:map_attributes][:place])
     if @map
@@ -95,7 +99,7 @@ class RoundsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy #ラウンド削除
     @round = find(params[:id])
     @round.destroy
     redirect_to rounds_path

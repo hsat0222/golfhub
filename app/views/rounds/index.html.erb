@@ -26,7 +26,7 @@
       </div>
       <div>
         <%= "場　所：" + round.prefecture.pref_name %>
-        <% round.prefecture.pref_region %>
+        <% round.prefecture.region_id %>
       </div>
       <div>
         <%= "参加数：" + round.users_rounds.where(approval_flag: "1").count.to_s %>

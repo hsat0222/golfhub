@@ -7,199 +7,229 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #prefecture seeds
+
+Region.create!(
+  [
+    {
+        region_name: "東北・北海道",
+    },
+    {
+        region_name: "関東",
+    },
+    {
+        region_name: "中部",
+    },
+    {
+        region_name: "近畿",
+    },
+    {
+        region_name: "中国",
+    },
+    {
+        region_name: "四国",
+    },
+    {
+        region_name: "九州・沖縄",
+    },
+    {
+        region_name: "その他",
+    }
+  ]
+)
+
 Prefecture.create!(
   [
     {
         pref_name: "北海道",
-        pref_region: "東北・北海道",
+        region_id: "1",
     },
     {
         pref_name: "青森県",
-        pref_region: "東北・北海道",
+        region_id: "1",
     },
     {
         pref_name: "岩手県",
-        pref_region: "東北・北海道",
+        region_id: "1",
     },
     {
         pref_name: "秋田県",
-        pref_region: "東北・北海道",
+        region_id: "1",
     },
     {
         pref_name: "宮城県",
-        pref_region: "東北・北海道",
+        region_id: "1",
     },
     {
         pref_name: "山形県",
-        pref_region: "東北・北海道",
+        region_id: "1",
     },
     {
         pref_name: "福島県",
-        pref_region: "東北・北海道",
+        region_id: "1",
     },
     {
         pref_name: "茨城県",
-        pref_region: "関東",
+        region_id: "2",
     },
     {
         pref_name: "栃木県",
-        pref_region: "関東",
+        region_id: "2",
     },
     {
         pref_name: "群馬県",
-        pref_region: "関東",
+        region_id: "2",
     },
     {
         pref_name: "千葉県",
-        pref_region: "関東",
+        region_id: "2",
     },
     {
         pref_name: "東京都",
-        pref_region: "関東",
+        region_id: "2",
     },
     {
         pref_name: "神奈川県",
-        pref_region: "関東",
+        region_id: "2",
     },
     {
         pref_name: "山梨県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "長野県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "新潟県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "富山県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "石川県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "福井県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "静岡県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "愛知県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "岐阜県",
-        pref_region: "中部",
+        region_id: "3",
     },
     {
         pref_name: "三重県",
-        pref_region: "近畿",
+        region_id: "4",
     },
     {
         pref_name: "滋賀県",
-        pref_region: "近畿",
+        region_id: "4",
     },
     {
         pref_name: "京都府",
-        pref_region: "近畿",
+        region_id: "4",
     },
     {
         pref_name: "大阪府",
-        pref_region: "近畿",
+        region_id: "4",
     },
     {
         pref_name: "兵庫県",
-        pref_region: "近畿",
+        region_id: "4",
     },
     {
         pref_name: "奈良県",
-        pref_region: "近畿",
+        region_id: "4",
     },
     {
         pref_name: "和歌山県",
-        pref_region: "近畿",
+        region_id: "4",
     },
     {
         pref_name: "鳥取県",
-        pref_region: "中国",
+        region_id: "5",
     },
     {
         pref_name: "鳥取県",
-        pref_region: "中国",
+        region_id: "5",
     },
     {
         pref_name: "島根県",
-        pref_region: "中国",
+        region_id: "5",
     },
     {
         pref_name: "岡山県",
-        pref_region: "中国",
+        region_id: "5",
     },
     {
         pref_name: "広島県",
-        pref_region: "中国",
+        region_id: "5",
     },
     {
         pref_name: "山口県",
-        pref_region: "中国",
+        region_id: "5",
     },
     {
         pref_name: "香川県",
-        pref_region: "四国",
+        region_id: "6",
     },
     {
         pref_name: "愛媛県",
-        pref_region: "四国",
+        region_id: "6",
     },
     {
         pref_name: "徳島県",
-        pref_region: "四国",
+        region_id: "6",
     },
     {
         pref_name: "高知県",
-        pref_region: "四国",
+        region_id: "6",
     },
     {
         pref_name: "福岡県",
-        pref_region: "九州・沖縄",
+        region_id: "7",
     },
     {
         pref_name: "佐賀県",
-        pref_region: "九州・沖縄",
+        region_id: "7",
     },
     {
         pref_name: "長崎県",
-        pref_region: "九州・沖縄",
+        region_id: "7",
     },
     {
         pref_name: "熊本県",
-        pref_region: "九州・沖縄",
+        region_id: "7",
     },
     {
         pref_name: "大分県",
-        pref_region: "九州・沖縄",
+        region_id: "7",
     },
     {
         pref_name: "宮崎県",
-        pref_region: "九州・沖縄",
+        region_id: "7",
     },
     {
         pref_name: "鹿児島県",
-        pref_region: "九州・沖縄",
+        region_id: "7",
     },
     {
         pref_name: "沖縄県",
-        pref_region: "九州・沖縄",
+        region_id: "7",
     },
     {
         pref_name: "その他",
-        pref_region: "その他",
+        region_id: "8",
     }
   ]
 )

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'messages/index'
+  get 'messages/show'
+  get 'messages/create'
   get 'home/top'
   get 'home/about'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -34,8 +37,8 @@ Rails.application.routes.draw do
   resources :rounds
   get '/maprequest', to: 'rounds#map', as: 'map_request'
   #comments controller
-  post '/rounds/:id/comment', to: 'comments#create', as: 'comments'
-  get '/rounds/:id/comment/new', to: 'comments#new', as: 'new_comment'
+  post '/round/:id/comment', to: 'comments#create', as: 'comments'
+  get '/round/:id/comment/new', to: 'comments#new', as: 'new_comment'
   delete '/comment/:id', to: 'comments#destroy', as: 'comment'
 
   ###admin###

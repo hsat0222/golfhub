@@ -19,13 +19,14 @@
 
   <div class="field">
     <%= f.label :"定員" %><br />
-    <%= f.number_field :capacity, min: 4, max: 100 %>
+    <%= f.number_field :capacity, min: 2, max: 100 %>
   </div>
 
   <%= f.fields_for :map do |m| %>
-    <div id="map-search" class="field">
+    <div class="field">
       <%= m.label :"コース" %><br />
-      <%= m.text_field :place, size: 50, autofocus: true %>
+      <%= m.text_field :place, size: 50, autofocus: true, id:"place-search", placeholder:"ゴルフ場名を入力" %>
+      <button id="search">検索</button>
     </div>
     <div id='map'></div>
   <% end %>
@@ -45,18 +46,51 @@
   </div>
 <% end %>
 
-<div id="map">
-</div>
-
 <style>
 #map{
   height: 400px;
 }
 </style>
 
-
 <script>
+function initMap() {
+    //対応させるテキストボックス
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.659024, lng: 139.703498},
+    zoom: 15
+  });
+  var input = /** @type {!HTMLInputElement} */(
+    document.getElementById('place-search'));
+  hoge = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: {country: 'jp'},
+    types: ['establishment'],
+  });
+  hoge.addListener('place_changed', function() {
+    input.value = this.getPlace().name;
+  });
 
+  var geocoder = new google.maps.Geocoder();
+  document.getElementById('search').addEventListener('click',function(){
+    geocoder.geocode({
+      place: docmet.getElementById('place').value
+    },function(results, status){
+      if (status !== 'OK'){
+        alert('Faild:' + status);
+        return;
+      }
+      if(results[0]){
+        new google.maps.Map(map,{
+          center: results[0].geometry.location,
+          zoom: 15
+        });
+      }else{
+        alert('No results found');
+        return;
+      }
+    });
+  });
 
+}
 </script>
-<script src="https://maps.googleapis.com/maps/api&/js?key=AIzaSyBHFvolQTeWeVVGNQ8DTP3FHRbNuxEAgSI&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&libraries=places&callback=initMap"
+            async defer></script>
