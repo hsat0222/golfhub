@@ -9,7 +9,7 @@
 <div class="round-search">
   <div>絞り込み検索</div>
     <%= form_tag({controller: "rounds", action: "search" }, {method: "get"}) do %>
-      <%= select_tag(:region_id, options_from_collection_for_select([@regions, :id, :region_name])) %>
+      <%= select_tag(:region_id, options_from_collection_for_select(@regions, :id, :region_name)) %>
       <%= select_tag(:round_date, options_for_select([["1月", "2020-01"],["12月", "2019-12"]])) %>
       <%= submit_tag "検索" %>
     <% end %>

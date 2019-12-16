@@ -24,7 +24,7 @@ class RoundsController < ApplicationController
       #   end
       # end
     # @rounds = @rounds.where("round_date LIKE ?","%#{params[:round_date]}%")
-    # @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
+    @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
     @regions = Region.all
     render :index
   end
