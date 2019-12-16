@@ -13,16 +13,18 @@ class RoundsController < ApplicationController
   end
 
   def search
-    @region = Region.where("id LIKE ?", "%#{params[:region_id]}%")
-    @rounds = []
-      @region.each do |region|
-        region.prefectures.each do |prefecture|
-          prefecture.rounds.each do |round|
-            @rounds << round
-          end
-        end
-      end
-    @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
+    # @region = Region.where("id LIKE ?","%#{params[:region_id]}%")
+    @rounds = Round.joins(prefecture: :region).select("rounds.*").where("region_id LIKE ? AND round_date LIKE ?","%#{params[:region_id]}%","%#{params[:round_date]}%")
+    # @rounds = []
+      # @region.each do |region|
+      #   region.prefectures.each do |prefecture|
+      #     prefecture.rounds.each do |round|
+      #       @rounds << round
+      #     end
+      #   end
+      # end
+    # @rounds = @rounds.where("round_date LIKE ?","%#{params[:round_date]}%")
+    # @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
     @regions = Region.all
     render :index
   end
