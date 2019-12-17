@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  get 'messages/index'
-  get 'messages/show'
-  get 'messages/create'
-  get 'home/top'
-  get 'home/about'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   ####devise###
   devise_for :users, controllers:{
@@ -17,10 +12,10 @@ Rails.application.routes.draw do
   ###enduser###
   #home controller
   root to: 'home#top'
-  get '/about', to: 'home#about'
+  get '/about', to: 'home#about', as: 'about'
   #users controller
   get '/user/:id', to: 'users#show', as: 'user'
-  get '/user/:id/unsubscribe', to: 'users#unsubscribe', as:'unsubscribe'
+  get '/user/:id/unsubscribe', to: 'users#unsubscribe', as: 'unsubscribe'
   patch '/user/:id', to: 'users#retire', as: 'retire'
   get '/user/retire/complete', to: 'users#complete', as: 'retire_complete'
   #message controller
@@ -29,6 +24,7 @@ Rails.application.routes.draw do
   post '/messages/:id', to: 'messages#create'
   #rounds controller
   get '/myrounds', to: 'rounds#myrounds'
+  get '/history', to: 'rounds#history'
   get '/search/rounds', to: 'rounds#search'
   get '/sort/rounds', to: 'rounds#sort'
   post '/round/:id', to: 'rounds#apply', as: 'apply_round'

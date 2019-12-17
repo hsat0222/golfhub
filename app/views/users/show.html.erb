@@ -26,6 +26,13 @@
       <%= "年齢：　　　　　" + @user.age %>
     </div>
     <div>
+      <%if @user.user_sex == 0 %>
+      性別　　　　　：男
+      <% else %>
+      性別　　　　　：女
+      <% end %>
+    </div>
+    <div>
       <%= "お住まい：　　　" + @user.prefecture.pref_name %>
     </div>
     <div>

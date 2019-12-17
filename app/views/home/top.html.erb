@@ -1,12 +1,12 @@
 <!-- トップ画像 -->
 <div class="top-image">
-    <div class="theTarget">
-      <div class="image1"></div>
-      <div class="image2"></div>
-      <div class="image3"></div>
-      <div class="image4"></div>
-      <div class="image5"></div>
-    </div>
+  <div class="theTarget">
+    <div class="image1"></div>
+    <div class="image2"></div>
+    <div class="image3"></div>
+    <div class="image4"></div>
+    <div class="image5"></div>
+  </div>
 </div>
 
 <h3 class="heading">新着ラウンド募集</h3>
@@ -48,7 +48,7 @@
     <% if user_signed_in? %>
     <div>
       <%= link_to user_path(user.id) do %>
-        <%= attachment_image_tag user, :user_image, :fill, 150, 150, fallback: "no_image.jpg", size:'150x150' %>
+        <%= attachment_image_tag user, :user_image, :fill, 120, 120, fallback: "no_image.jpg", size:'120x120' %>
       <% end %>
     </div>
     <div>
@@ -58,7 +58,7 @@
     <% else %>
     <div>
       <%= link_to new_user_session_path do %>
-        <%= attachment_image_tag user, :user_image, :fill, 150, 150, fallback: "no_image.jpg", size:'150x150' %>
+        <%= attachment_image_tag user, :user_image, :fill, 120, 120, fallback: "no_image.jpg", size:'120x120' %>
       <% end %>
     </div>
     <div>

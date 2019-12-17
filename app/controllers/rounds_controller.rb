@@ -1,15 +1,18 @@
 class RoundsController < ApplicationController
-  before_action :correct_round, only: [:edit, :update]
+  before_action :correct_round, only: [:edit, :update, :destroy, :approval, :refuse]
 
   def myrounds
-    @member_rounds = UsersRound.where(user_id: current_user.id).where(approval_flag: "1")
-    @apply_rounds = UsersRound.where(user_id: current_user.id).where(approval_flag: "0")
+    @member_rounds = UsersRound.joins(:round).where(user_id: current_user.id, approval_flag: "1").order("rounds.round_date ASC")
+    @apply_rounds = UsersRound.joins(:round).where(user_id: current_user.id, approval_flag: "0").order("rounds.round_date ASC")
+  end
+
+  def history
+    @joined_rounds = UsersRound.joins(:round).where(user_id: current_user.id).where(approval_flag: "1").order("rounds.round_date DESC").page(params[:page]).per(10)
   end
 
   def index
     @rounds = Round.all.order("round_date ASC").page(params[:page]).per(10)
     @regions = Region.all
-    @now = Time.current
   end
 
   def search
@@ -30,6 +33,15 @@ class RoundsController < ApplicationController
   end
 
   def sort
+    if params[:sort_type] == "1"
+      @rounds = Round.all.order('round_date ASC').page(params[:page]).per(10)
+      @regions = Region.all
+      render :index
+    elsif params[:sort_type] == "2"
+      @rounds = Round.all.order('id ASC').page(params[:page]).per(10)
+      @regions = Region.all
+      render :index
+    end
   end
 
   def show
@@ -39,7 +51,7 @@ class RoundsController < ApplicationController
     @user_round = UsersRound.where(user_id: current_user.id).where(round_id: @round.id)
     @member = UsersRound.where(user_id: current_user.id).where(round_id: @round.id).where(approval_flag: "1")
     end
-    @comments = Comment.where(round_id: @round.id)
+    @comments = Comment.where(round_id: @round.id).order('id DESC')
     @members = UsersRound.where(round_id: @round.id).where(approval_flag: "1")
     @apply = UsersRound.where(round_id: @round.id).where(approval_flag: "0")
 
@@ -55,13 +67,6 @@ class RoundsController < ApplicationController
   end
 
   def map
-    # results = Geocoder.search(params[:place])
-    # @latlng = results.first.coordinates
-    # # これでmap.js.erbで、経度緯度情報が入った@latlngを使える。
-
-    # respond_to do |format|
-    #   format.js
-    # end
   end
 
   def create

@@ -11,16 +11,16 @@
 
   <body>
 
-    <div class="container-fluid">
+    <div class="wrapper">
       <!--　ヘッダー　-->
       <header>
         <nav class="navbar navbar-default">
           <div class="container-fluidas" style="width: 90%;margin:0 auto;">
             <div class="navbar-header">
-              <%= link_to "Golf hub", root_path, class:"navbar-brand" %>
+              <%= link_to "Golf hub", root_path, class: "navbar-brand", data: {"turbolinks" => false} %>
             </div>
             <ul class="nav navbar-nav">
-              <li><%= link_to "Golfhubとは？", home_about_path, class:"active" %></li>
+              <li><%= link_to "Golfhubとは？", about_path, class: "active" %></li>
               <li><%= link_to "ラウンド募集", rounds_path %></li>
               <% if user_signed_in? %>
               <li>
@@ -40,34 +40,38 @@
       </header>
 
       <!-- サイドバー・コンテンツ -->
-      <div class="row" style="width: 90%;margin:0 auto;">
+      <div>
       <!-- サイドバー -->
         <div id="sidebar" class="col-sm-2 col-sm-offset-1 col-xs-2 col-xs-offset-1">
+          <div class="mymenu-title">マイメニュー</div>
           <% if user_signed_in? %>
-          <div>マイメニュー</div>
-          <div><%= link_to "Home", user_path(current_user.id) %></div>
-          <div><%= link_to "ラウンド予定", myrounds_path %></div>
+          <div class="mymenu-item"><%= link_to "マイページ", user_path(current_user.id) %></div>
+          <div class="mymenu-item"><%= link_to "ラウンド予定", myrounds_path %></div>
+          <div class="mymenu-item"><%= link_to "ラウンド履歴", history_path %></div>
           <% else %>
-          <div>
-            <%= link_to "ログイン", new_user_session_path, class:"btn btn-primary navbar-btn" %>
+          <div class="mymenu-item">
+            <%= link_to "ログイン", new_user_session_path %>
           </div>
           <% end %>
         </div>
+
         <!-- コンテンツ -->
         <div id="contents" class="col-sm-8 col-xs-8">
-          <%= yield %>
-        </div>
-        <div class="push"></div>
-        </div>
-
-        <!-- フッター -->
-        <div>
-          <div id="footer" class="col-sm-12 col-xs-12">
-          フッター
+          <div class="col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+            <%= yield %>
           </div>
         </div>
+      </div>
+      <!-- 空要素 -->
+      <div class="push"></div>
 
     </div>
+
+    <!-- フッター -->
+    <div class="footer col-sm-12 col-xs-12">
+    フッター
+    </div>
+
 
   </body>
 </html>

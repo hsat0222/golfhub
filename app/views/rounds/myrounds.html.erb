@@ -1,11 +1,13 @@
 <h3 class="heading">ラウンド予定一覧</h3>
 
+
 <h4 class="myround-heading">主催ラウンド</h4>
 <div>
   <%= link_to "主催ラウンドを作成", new_round_path, class:"btn btn-info" %>
 </div>
 <% @member_rounds.each do |master| %>
 <% if master.round.users_rounds.first.user_id == current_user.id %>
+<% if Date.current < master.round.round_date %>
 <div class="row round-index-box">
   <div class="left-box col-sm-3 col-xs-3">
     <div>
@@ -41,10 +43,12 @@
 </div>
 <% end %>
 <% end %>
+<% end %>
 
 <h4 class="myround-heading">参加ラウンド</h4>
 <% @member_rounds.each do |member| %>
 <% unless member.round.users_rounds.first.user_id == current_user.id %>
+<% if Date.current < member.round.round_date %>
 <div class="row round-index-box">
   <div class="left-box col-sm-3 col-xs-3">
     <div>
@@ -77,9 +81,11 @@
 </div>
 <% end %>
 <% end %>
+<% end %>
 
 <h4 class="myround-heading">参加申請中</h4>
 <% @apply_rounds.each do |apply| %>
+<% if Date.current < apply.round.round_date %>
 <div class="row round-index-box">
   <div class="left-box col-sm-3 col-xs-3">
     <div>
@@ -110,5 +116,6 @@
     </div>
   </div>
 </div>
+<% end %>
 <% end %>
 

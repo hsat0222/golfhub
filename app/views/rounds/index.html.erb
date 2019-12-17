@@ -8,20 +8,29 @@
 <!--検索・ソート-->
 <div class="round-search">
   <div>絞り込み検索</div>
-    <%= form_tag({controller: "rounds", action: "search" }, {method: "get"}) do %>
-      <%= select_tag(:region_id, options_from_collection_for_select(@regions, :id, :region_name)) %>
-      <%= select_tag(:round_date, options_for_select([["1月", "2020-01"],["12月", "2019-12"]])) %>
-      <%= submit_tag "検索" %>
-    <% end %>
+  <%= form_tag({controller: "rounds", action: "search" }, {method: "get"}) do %>
+    <%= select_tag(:region_id, options_from_collection_for_select(@regions, :id, :region_name)) %>
+    <%= select_tag(:round_date, options_for_select([["#{Date.current.strftime("%m月")}", "#{Date.current.strftime("20%y-%m")}"],
+                                                    ["#{Date.current.next_month(1).strftime("%m月")}", "#{Date.current.next_month(1).strftime("20%y-%m")}"],
+                                                    ["#{Date.current.next_month(2).strftime("%m月")}", "#{Date.current.next_month(2).strftime("20%y-%m")}"]
+                                                    ])) %>
+    <%= submit_tag "検索" %>
+  <% end %>
+
+  <div>並び替え</div>
+    <%= link_to "開催日順", sort_rounds_path(sort_type: '1') %>
+    <%= link_to "新着順", sort_rounds_path(sort_type: '2') %>
 </div>
 
-
-<!--ラウンド一覧-->
+<!--ラウンド一覧情報-->
 <div class="round-index">
+
   <div class="pagenate">
     <%= paginate @rounds %>
   </div>
+
   <% @rounds.each do |round| %>
+  <% if Date.current < round.round_date %>
   <div class="row round-index-box">
     <div class="left-box col-sm-3 col-xs-3">
       <div>
@@ -29,6 +38,7 @@
       </div>
       <div>
         <%= "場　所：" + round.prefecture.pref_name %>
+        <!-- 地方id(非表示) -->
         <% round.prefecture.region_id %>
       </div>
       <div>
@@ -52,10 +62,12 @@
         <%= "内　容　：" + round.round_intro.truncate(50, omission: '...') %>
       </div>
     </div>
-
   </div>
   <% end %>
+  <% end %>
+
   <div class="pagenate">
     <%= paginate @rounds %>
   </div>
+
 </div>

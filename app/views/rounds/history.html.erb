@@ -1,0 +1,50 @@
+<h3 class="heading">ラウンド履歴</h3>
+<!--ラウンド一覧情報-->
+<div class="round-index">
+
+  <div class="pagenate">
+    <%= paginate @joined_rounds %>
+  </div>
+
+  <% @joined_rounds.each do |jr| %>
+  <% if Date.current > jr.round.round_date %>
+  <div class="row round-index-box">
+    <div class="left-box col-sm-3 col-xs-3">
+      <div>
+        <%= jr.round.round_date.strftime("20%y年%m月%d日") %>
+      </div>
+      <div>
+        <%= "場　所：" + jr.round.prefecture.pref_name %>
+        <!-- 地方id(非表示) -->
+        <% jr.round.prefecture.region_id %>
+      </div>
+      <div>
+        <%= "参加数：" + jr.round.users_rounds.where(approval_flag: "1").count.to_s %>
+      </div>
+      <div>
+        <%= "定　員：" + jr.round.capacity.to_s %>
+      </div>
+    </div>
+    <div class="right-box col-sm-9 col-xs-9">
+      <div>
+        <%= link_to jr.round.round_title, round_path(jr.round) %>
+      </div>
+      <div>
+        <%= "コース名：" + jr.round.map.place %>
+      </div>
+      <div>
+        <%= "主催者　：" + jr.round.users_rounds.first.user.user_name %>
+      </div>
+      <div>
+        <%= "内　容　：" + jr.round.round_intro.truncate(50, omission: '...') %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+
+  <div class="pagenate">
+    <%= paginate @joined_rounds %>
+  </div>
+
+</div>
