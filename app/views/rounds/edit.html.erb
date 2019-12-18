@@ -25,7 +25,7 @@
   <%= f.fields_for :map do |m| %>
     <div class="field">
       <%= m.label :"コース" %><br />
-      <%= m.text_field :place, size: 50, autofocus: true %>
+      <%= m.text_field :place, size: 50, autofocus: true, id:"place-search", placeholder:"ゴルフ場名を入力"  %>
     </div>
   <% end %>
 
@@ -47,3 +47,21 @@
     <%= link_to "ラウンド削除", round_path(@round), method: :delete, class:"btn btn-danger", "data-confirm" => "本当に削除しますか？この操作は取り消せません。" %>
   </div>
 <% end %>
+
+<script>
+function initMap() {
+
+  var input = /** @type {!HTMLInputElement} */(
+    document.getElementById('place-search'));
+  hoge = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: {country: 'jp'},
+    types: ['establishment'],
+  });
+  hoge.addListener('place_changed', function() {
+    input.value = this.getPlace().name;
+  });
+
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&libraries=places&callback=initMap"
+            async defer></script>

@@ -7,26 +7,16 @@ class RoundsController < ApplicationController
   end
 
   def history
-    @joined_rounds = UsersRound.joins(:round).where(user_id: current_user.id).where(approval_flag: "1").order("rounds.round_date DESC").page(params[:page]).per(10)
+    @joined_rounds = UsersRound.joins(:round).where(user_id: current_user.id, approval_flag: "1").order("rounds.round_date DESC")
   end
 
   def index
-    @rounds = Round.all.order("round_date ASC").page(params[:page]).per(10)
+    @rounds = Round.where("round_date > ?", Date.current).order("round_date ASC").page(params[:page]).per(10)
     @regions = Region.all
   end
 
   def search
-    # @region = Region.where("id LIKE ?","%#{params[:region_id]}%")
     @rounds = Round.joins(prefecture: :region).select("rounds.*").where("region_id LIKE ? AND round_date LIKE ?","%#{params[:region_id]}%","%#{params[:round_date]}%")
-    # @rounds = []
-      # @region.each do |region|
-      #   region.prefectures.each do |prefecture|
-      #     prefecture.rounds.each do |round|
-      #       @rounds << round
-      #     end
-      #   end
-      # end
-    # @rounds = @rounds.where("round_date LIKE ?","%#{params[:round_date]}%")
     @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
     @regions = Region.all
     render :index
@@ -34,13 +24,13 @@ class RoundsController < ApplicationController
 
   def sort
     if params[:sort_type] == "1"
-      @rounds = Round.all.order('round_date ASC').page(params[:page]).per(10)
-      @regions = Region.all
-      render :index
+    @rounds = Round.where("round_date > ?", Date.current).order('round_date ASC').page(params[:page]).per(10)
+    @regions = Region.all
+    render :index
     elsif params[:sort_type] == "2"
-      @rounds = Round.all.order('id ASC').page(params[:page]).per(10)
-      @regions = Region.all
-      render :index
+    @rounds = Round.where("round_date > ?", Date.current).order('id ASC').page(params[:page]).per(10)
+    @regions = Region.all
+    render :index
     end
   end
 

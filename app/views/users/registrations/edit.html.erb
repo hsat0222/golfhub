@@ -1,4 +1,4 @@
-<h3 class="heading">
+<h3 class="my-heading">
   <sapan class="glyphicon glyphicon-cog"></sapan>
   プロフィール編集
 </h3>
@@ -61,12 +61,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :"新規パスワード" %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+    <%= f.label :"新規パスワード" %> <i>(変更する場合は入力してください)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %><span>(半角英数６文字以上)</span>
   </div>
 
   <div class="field">
@@ -76,7 +72,7 @@
 
 
   <div class="field">
-    <%= f.label :"現在のパスワード" %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :"現在のパスワード" %> <i>(情報を変更した場合は入力して更新ボタンを押して下さい。)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 

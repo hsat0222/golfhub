@@ -3,4 +3,6 @@ class Map < ApplicationRecord
 
   geocoded_by :place
   after_validation :geocode
+
+  validates :place, presence: true
 end

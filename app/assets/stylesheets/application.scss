@@ -46,6 +46,10 @@ html, body{
 
 .footer{
   background-color: #f4f0e6;
+  p{
+    text-align: center;
+    margin: 30px;
+  }
 }
 
 // ヘッダー
@@ -95,4 +99,7 @@ html, body{
   border-bottom: solid 15px transparent;
   border-right: solid 20px rgb(149, 158, 155);
 }
-
+/* 見出し　マイメニュー */
+.my-heading{
+  background: linear-gradient(transparent 70%, #a7d6ff 70%);
+}

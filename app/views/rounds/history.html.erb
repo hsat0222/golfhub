@@ -1,10 +1,6 @@
-<h3 class="heading">ラウンド履歴</h3>
+<h3 class="my-heading">ラウンド履歴</h3>
 <!--ラウンド一覧情報-->
 <div class="round-index">
-
-  <div class="pagenate">
-    <%= paginate @joined_rounds %>
-  </div>
 
   <% @joined_rounds.each do |jr| %>
   <% if Date.current > jr.round.round_date %>
@@ -42,9 +38,5 @@
   </div>
   <% end %>
   <% end %>
-
-  <div class="pagenate">
-    <%= paginate @joined_rounds %>
-  </div>
 
 </div>

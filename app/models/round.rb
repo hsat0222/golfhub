@@ -8,4 +8,10 @@ class Round < ApplicationRecord
   belongs_to :map
   accepts_nested_attributes_for :map
 
+  validates :round_title, presence: true
+  validates :round_date, presence: true
+  validates :round_intro, presence: true
+  validates :recruitment_sex, presence: true
+  validates :capacity, presence: true
+
 end

@@ -19,7 +19,7 @@
 
   <div>並び替え</div>
     <%= link_to "開催日順", sort_rounds_path(sort_type: '1') %>
-    <%= link_to "新着順", sort_rounds_path(sort_type: '2') %>
+    <%= link_to "　新着順", sort_rounds_path(sort_type: '2') %>
 </div>
 
 <!--ラウンド一覧情報-->
@@ -30,10 +30,11 @@
   </div>
 
   <% @rounds.each do |round| %>
-  <% if Date.current < round.round_date %>
+  <!-- if Date.current < round.round_date -->
   <div class="row round-index-box">
     <div class="left-box col-sm-3 col-xs-3">
       <div>
+        <!-- 日程 -->
         <%= round.round_date.strftime("20%y年%m月%d日") %>
       </div>
       <div>
@@ -64,7 +65,7 @@
     </div>
   </div>
   <% end %>
-  <% end %>
+  <!-- end  -->
 
   <div class="pagenate">
     <%= paginate @rounds %>

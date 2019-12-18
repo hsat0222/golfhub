@@ -1,70 +1,116 @@
 <h3 class="heading">ラウンド詳細情報</h3>
 
+<% if user_signed_in? %>
 <% if current_user.id == @master.user_id %>
-<div>
+<span>
   <%= link_to "ラウンド情報編集", edit_round_path, class:"btn btn-success" %>
-</div>
+</span>
+<% end %>
 <% end %>
 
-<div>
+<span>
   <%= link_to "ラウンド一覧へ", rounds_path, class:"btn btn-default" %>
+  <% if user_signed_in? %>
   <% if @user_round.blank? %>
    <%= link_to "参加申請", apply_round_path(@round.id), method: :post, class:"btn btn-info", "data-confirm" => "このラウンドに参加申請を送りますか？" %>
   <% end %>
+  <% end %>
+</span>
+
+<table class="table round-info">
+  <tr>
+    <td>
+      <th>
+        タイトル
+      </th>
+    </td>
+    <td>
+      <%= @round.round_title %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <th>
+        主催者
+      </th>
+    </td>
+    <td>
+      <%= link_to @master.user.user_name, user_path(@master.user_id) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <th>
+        開催日
+      </th>
+    </td>
+    <td>
+      <%= @round.round_date.strftime("20%y年%m月%d日") %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <th>
+        場所
+      </th>
+    </td>
+    <td>
+      <%= @round.prefecture.pref_name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <th>
+        コース名
+      </th>
+    </td>
+    <td>
+      <%= @round.map.place %>
+    </td>
+  </tr>
+</table>
+
+<% if @lat.present? %>
+<div>
+  <div id='map'></div>
+</div>
+<% end %>
+
+<div class="count">
+  <p class="count-num">
+    <%= "参加数：" + @members.count.to_s %>　／　<%= "定員数：" + @round.capacity.to_s %>
+  </p>
 </div>
 
-<div class="round-info">
-  <div>
-    <%= @round.round_date.strftime("20%y年%m月%d日") %>
-  </div>
-  <div>
-    <%= "場　所：" + @round.prefecture.pref_name %>
-  </div>
-  <div>
-    <%= @round.round_title %>
-  </div>
-  <div>
-    <span>主催者：</span><%= link_to @master.user.user_name, user_path(@master.user_id) %>
-  </div>
-  <div>
-    <%= "コース名：" + @round.map.place %>
-    <%= @lat %>
-    <%= @lng %>
-  </div>
-  <% if @lat.present? %>
-  <div>
-    <div id='map'></div>
-  </div>
-  <% end %>
-  <div>
-    <%= "参加数：" + @members.count.to_s %>
-  </div>
-  <div>
-    <%= "定員数：" + @round.capacity.to_s %>
-  </div>
-  <div>
-    <%= "詳細情報：" + @round.round_intro %>
-  </div>
-</div>
 
 <!-- タブ・メニュー -->
 <ul class="nav nav-tabs">
   <li class="active">
+    <a href="#round-intro" data-toggle="tab">詳細情報</a>
+  </li>
+  <li>
     <a href="#round-comments" data-toggle="tab">コメント掲示板</a>
   </li>
   <li>
     <a href="#round-members" data-toggle="tab">参加者一覧</a>
   </li>
+  <% if user_signed_in? %>
   <% if current_user.id == @master.user_id %>
   <li>
     <a href="#round-applicants" data-toggle="tab">参加希望者</a>
   </li>
   <% end %>
+  <% end %>
 </ul>
 
 <div class="tab-content">
+  <!-- 詳細情報 -->
+  <div id="round-intro" class="tab-pane active">
+    <%= @round.round_intro %>
+  </div>
+
   <!--　コメント一覧　-->
-  <div id="round-comments" class="tab-pane active">
+  <div id="round-comments" class="tab-pane">
     <% if @member.present? %>
     <span>
       <%= link_to "新規投稿", new_comment_path(@round.id), class:"btn btn-primary" %>
@@ -81,13 +127,13 @@
             <span>
               <%= c.created_at.strftime("20%y/%m/%d %H:%M") %>
             </span>
-
+            <% if user_signed_in? %>
             <% if c.user_id == current_user.id %>
             <sapn>
               <%= link_to "削除", comment_path(c.id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
             </span>
             <% end %>
-
+            <% end %>
           </th>
         </tr>
         <tr>
@@ -131,6 +177,7 @@
             <span>
               <%= apply.created_at.strftime("20%y/%m/%d %H:%M") %>
             </span>
+            <% if user_signed_in? %>
             <% if current_user.id == @master.user_id %>
             <span>
               <%= link_to "承認", approval_round_path(user_id: apply.user_id, round_id: apply.round_id), method: :patch, class:"btn-sm btn-info", "data-confirm" => "承認しますか？" %>
@@ -138,6 +185,7 @@
             <span>
               <%= link_to "拒否", refuse_round_path(user_id: apply.user_id, round_id: apply.round_id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に拒否してもよろしいですか？" %>
             </span>
+            <% end %>
             <% end %>
           </div>
         </td>
