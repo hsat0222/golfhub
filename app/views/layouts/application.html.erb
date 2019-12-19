@@ -20,18 +20,18 @@
               <%= link_to "Golf hub", root_path, class: "navbar-brand", data: {"turbolinks" => false} %>
             </div>
             <ul class="nav navbar-nav">
-              <li><%= link_to "Golfhubとは？", about_path, class: "active" %></li>
-              <li><%= link_to "ラウンド募集", rounds_path %></li>
+              <li><%= link_to "Golfhubとは？", about_path, class: "btn btn-default navbar-btn" %></li>
+              <li><%= link_to "ラウンド募集", rounds_path, class: "btn btn-default navbar-btn" %></li>
               <% if user_signed_in? %>
               <li>
-                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"btn btn-secondary navbar-btn" %>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-default navbar-btn" %>
               </li>
               <% else %>
               <li>
-                <%= link_to "新規登録", new_user_registration_path, class:"btn btn-success navbar-btn" %>
+                <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success navbar-btn" %>
               </li>
               <li>
-                <%= link_to "ログイン", new_user_session_path, class:"btn btn-primary navbar-btn" %>
+                <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary navbar-btn" %>
               </li>
               <% end %>
             </ul>
@@ -69,7 +69,7 @@
 
     <!-- フッター -->
     <div class="footer col-sm-12 col-xs-12">
-      <p>© Infratop.inc</p>
+      <p>© Golfhub.inc</p>
     </div>
 
 

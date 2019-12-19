@@ -59,8 +59,11 @@
       <div>
         <%= "主催者　：" + round.users_rounds.first.user.user_name %>
       </div>
-      <div>
-        <%= "内　容　：" + round.round_intro.truncate(50, omission: '...') %>
+      <div class="col-sm-2 col-xs-2">
+        内　容：
+      </div>
+      <div class="col-sm-10 col-xs-10">
+        <%= round.round_intro.truncate(50, omission: '...') %>
       </div>
     </div>
   </div>

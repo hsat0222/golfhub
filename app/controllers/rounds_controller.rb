@@ -1,4 +1,5 @@
 class RoundsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :search, :sort, :show]
   before_action :correct_round, only: [:edit, :update, :destroy, :approval, :refuse]
 
   def myrounds

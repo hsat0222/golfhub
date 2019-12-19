@@ -237,9 +237,9 @@ Prefecture.create!(
 Map.create!(
   [
     {
-      place: "井原ゴルフ倶楽部",
-      longitude: "133.30538", #経度
-      latitude: "34.37146", #緯度
+      place: "笠岡カントリークラブ",
+      longitude: "133.33189", #経度
+      latitude: "34.34437", #緯度
     },
     {
       place: "笠岡カントリークラブ",
@@ -247,9 +247,9 @@ Map.create!(
       latitude: "34.34437", #緯度
     },
     {
-      place: "船橋カントリー倶楽部",
-      longitude: "140.05150", #経度
-      latitude: "35.48056", #緯度
+      place: "中山カントリークラブ",
+      longitude: "140.04525", #経度
+      latitude: "35.45363", #緯度
     },
     {
       place: "中山カントリークラブ",
@@ -267,7 +267,7 @@ Round.create!(
       round_date: "2019-12-22",
       capacity: "80",
       map_id: "1",
-      round_intro: "1ラウンド紹介1ーーーえええええええええええええええええええええええええええええええええええええええええーーーーーーーーーーーーーー",
+      round_intro: "よろしくおねがいします。",
       recruitment_sex: "3",
     },
     {
@@ -276,7 +276,7 @@ Round.create!(
       round_date: "2019-12-20",
       capacity: "80",
       map_id: "2",
-      round_intro: "2ラウンド紹介2ーーーーーーーうううううううううううううううううううういういういううううううううううううううううううううううううううーーーーーーーーーー",
+      round_intro: "・・・・",
       recruitment_sex: "3",
     },
     {
@@ -285,7 +285,7 @@ Round.create!(
       round_date: "2020-01-03",
       capacity: "40",
       map_id: "3",
-      round_intro: "3ラウンド紹介3ーーーーーいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいーーーーーーーーーーーー",
+      round_intro: "ラウンド紹介3",
       recruitment_sex: "3",
     },
     {
@@ -294,7 +294,7 @@ Round.create!(
       round_date: "2019-12-18",
       capacity: "4",
       map_id: "1",
-      round_intro: "4ラウンド紹介4ーーーーーーーあああああああああああああああああああああああああああああああああああああああーーーーーーーーーー",
+      round_intro: "4ラウンド紹介4",
       recruitment_sex: "3",
     }
   ]

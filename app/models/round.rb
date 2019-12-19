@@ -13,5 +13,4 @@ class Round < ApplicationRecord
   validates :round_intro, presence: true
   validates :recruitment_sex, presence: true
   validates :capacity, presence: true
-
 end

@@ -15,4 +15,12 @@ class User < ApplicationRecord
   belongs_to :prefecture
 
   attachment :user_image
+
+  validates :user_name, presence: true, uniqueness: true
+  validates :age, presence: true
+  validates :prefecture_id, presence: true
+  validates :exp_golf, presence: true
+  validates :av_score, presence: true
+  validates :user_sex, presence: true
+  validates :user_job, presence: true
 end
