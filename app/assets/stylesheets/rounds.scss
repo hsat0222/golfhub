@@ -2,15 +2,41 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.comments{
-  border-bottom: dotted;
+.round-index-box{
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #00BCD4;
+  background: #e4fcff;/*背景色*/
+  border-top: solid 6px #1dc1d6;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
 }
 
-.round-index-box{
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    color: #00BCD4;
-    background: #e4fcff;/*背景色*/
-    border-top: solid 6px #1dc1d6;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
+.myround-heading{
+  color: #444;
+  line-height: 1.6em;
+  padding: 0 0 2px 12px;
+  border-left: 4px solid #444;
+  border-bottom: 1px solid #888;
+}
+
+
+.count{
+  margin-top: 20px;
+}
+
+.count-num{
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.tab-content{
+  margin-bottom: 100px;
+}
+
+.index-intro-title{
+  float: left;
+}
+
+.index-intro-text{
+  float: left;
 }

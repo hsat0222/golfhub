@@ -1,4 +1,7 @@
-<h3 class="heading"><sapan class="glyphicon glyphicon-cog"></sapan>プロフィール編集</h3>
+<h3 class="my-heading">
+  <sapan class="glyphicon glyphicon-cog"></sapan>
+  プロフィール編集
+</h3>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -15,6 +18,11 @@
   <div class="field">
     <%= f.label :"表示名" %><br />
     <%= f.text_field :user_name, autofocus: true  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"プロフィール画像" %><br />
+    <%= f.attachment_field :user_image %>
   </div>
 
   <div class="field">
@@ -53,12 +61,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :"新規パスワード" %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+    <%= f.label :"新規パスワード" %> <i>(変更する場合は入力してください)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %><span>(半角英数６文字以上)</span>
   </div>
 
   <div class="field">
@@ -68,7 +72,7 @@
 
 
   <div class="field">
-    <%= f.label :"現在のパスワード" %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :"現在のパスワード" %> <i>(情報を変更した場合は入力して更新ボタンを押して下さい。)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
@@ -79,4 +83,4 @@
 
 <%= link_to "戻る", :back, class:"btn btn-default" %><br />
 
-<%= link_to "退会する", user_unsubscribe_path, class:"btn btn-danger" %>
+<%= link_to "退会する", unsubscribe_path(current_user), class:"btn btn-danger" %>

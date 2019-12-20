@@ -70,3 +70,9 @@ gem 'refile-mini_magick'
 gem 'kaminari','~> 1.1.1'
 gem 'gmaps4rails'
 gem 'geocoder'
+gem 'dotenv-rails'
+gem 'ransack'
+
+group :production do
+  gem 'mysql2'
+end

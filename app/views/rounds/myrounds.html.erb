@@ -1,2 +1,121 @@
-<h1>Rounds#myrounds</h1>
-<p>Find me in app/views/rounds/myrounds.html.erb</p>
+<h3 class="my-heading">ラウンド予定一覧</h3>
+
+
+<h4 class="myround-heading">主催ラウンド</h4>
+<div>
+  <%= link_to "主催ラウンドを作成", new_round_path, class:"btn btn-info" %>
+</div>
+<% @member_rounds.each do |master| %>
+<% if master.round.users_rounds.first.user_id == current_user.id %>
+<% if Date.current < master.round.round_date %>
+<div class="row round-index-box">
+  <div class="left-box col-sm-3 col-xs-3">
+    <div>
+      <%= master.round.round_date.strftime("20%y年%m月%d日") %>
+    </div>
+    <div>
+      <%= "場　所：" + master.round.prefecture.pref_name %>
+    </div>
+    <div>
+      <%= "参加数：" + master.round.users_rounds.where(approval_flag: "1").count.to_s %>
+    </div>
+    <div>
+      <%= "定　員：" + master.round.capacity.to_s %>
+    </div>
+  </div>
+  <div class="right-box col-sm-9 col-xs-9">
+    <div>
+      <%= link_to master.round.round_title, round_path(master.round_id) %>
+    </div>
+    <div>
+      <%= "コース名：" + master.round.map.place %>
+    </div>
+    <div>
+      <%= "主催者　：" + master.round.users_rounds.first.user.user_name %>
+    </div>
+    <div class="col-sm-2">
+      内　容：
+    </div>
+    <div class="col-sm-10">
+      <%= master.round.round_intro.truncate(50, omission: '...') %>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>
+<% end %>
+
+<h4 class="myround-heading">参加ラウンド</h4>
+<% @member_rounds.each do |member| %>
+<% unless member.round.users_rounds.first.user_id == current_user.id %>
+<% if Date.current < member.round.round_date %>
+<div class="row round-index-box">
+  <div class="left-box col-sm-3 col-xs-3">
+    <div>
+      <%= member.round.round_date.strftime("20%y年%m月%d日") %>
+    </div>
+    <div>
+      <%= "場　所：" + member.round.prefecture.pref_name %>
+    </div>
+    <div>
+      <%= "参加数：" + member.round.users_rounds.count.to_s %>
+    </div>
+    <div>
+      <%= "定　員：" + member.round.capacity.to_s %>
+    </div>
+  </div>
+  <div class="right-box col-sm-9 col-xs-9">
+    <div>
+      <%= link_to member.round.round_title, round_path(member.round_id) %>
+    </div>
+    <div>
+      <%= "コース名：" + member.round.map.place %>
+    </div>
+    <div>
+      主催者　：<%= link_to member.round.users_rounds.first.user.user_name, user_path(member.round.users_rounds.first.user_id) %>
+    </div>
+    <div>
+      <%= "内　容　：" + member.round.round_intro.truncate(50, omission: '...') %>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>
+<% end %>
+
+<h4 class="myround-heading">参加申請中</h4>
+<% @apply_rounds.each do |apply| %>
+<% if Date.current < apply.round.round_date %>
+<div class="row round-index-box">
+  <div class="left-box col-sm-3 col-xs-3">
+    <div>
+      <%= apply.round.round_date.strftime("20%y年%m月%d日") %>
+    </div>
+    <div>
+      <%= "場　所：" + apply.round.prefecture.pref_name %>
+    </div>
+    <div>
+      <%= "参加数：" + apply.round.users_rounds.count.to_s %>
+    </div>
+    <div>
+      <%= "定　員：" + apply.round.capacity.to_s %>
+    </div>
+  </div>
+  <div class="right-box col-sm-9 col-xs-9">
+    <div>
+      <%= link_to apply.round.round_title, round_path(apply.round_id) %>
+    </div>
+    <div>
+      <%= "コース名：" + apply.round.map.place %>
+    </div>
+    <div>
+      主催者　：<%= link_to apply.round.users_rounds.first.user.user_name, user_path(apply.round.users_rounds.first.user_id) %>
+    </div>
+    <div>
+      <%= "内　容　：" + apply.round.round_intro.truncate(50, omission: '...') %>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>
+

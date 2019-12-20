@@ -15,6 +15,7 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ @import url('https://fonts.googleapis.com/css?family=Corben:700');
 
 .clearfix::after {
   content: "";
@@ -28,26 +29,65 @@
 	box-sizing: border-box;
 }
 
-// #sidebar{
-//   padding-bottom: 60px;
-// }
-
-#contents {
-  padding-bottom: 60px;
+html, body{
+  height: 100%;
 }
 
-// #footer {
-//   position: fixed;
-//   height: 100px;
-//   background: #cccccc;
-// }
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -80px;
+}
 
+.footer, .push {
+  height: 80px;
+}
+
+.footer{
+  background-color: #f4f0e6;
+  p{
+    text-align: center;
+    margin: 30px;
+  }
+}
+
+// ヘッダー
+.navbar-default{
+  background-color: #E6FFE9;
+}
+.navbar-header{
+  font-family: 'Corben', cursive;
+  color: #fff;
+  text-shadow: 1px 1px 1px #555, -1px 1px 1px #555, 1px -1px 1px #555, -1px -1px 1px #555, 1px 1px 1px #555, -1px 1px 1px #555, 1px -1px 1px #555, -1px -1px 1px #555, 5px 5px #9ccc65;
+  transform: rotate(-2deg);
+}
+
+.navbar-brand{
+  font-size: 3em;
+}
+
+// サイドバー
+#sidebar{
+  background-color: #f4f0e6;
+  border-radius: 10px;
+  border: solid thin;
+}
+
+.mymenu-title{
+  font-size: 2rem;
+}
+
+.mymenu-item{
+  padding-bottom: 5px;
+}
 /* 見出し　全ページ共通 */
 .heading{
   position: relative;
   padding: 0.5em;
   background: #a6d3c8;
   color: white;
+  margin-bottom: 30px;
 }
 
 .heading::before {
@@ -58,4 +98,8 @@
   border: none;
   border-bottom: solid 15px transparent;
   border-right: solid 20px rgb(149, 158, 155);
+}
+/* 見出し　マイメニュー */
+.my-heading{
+  background: linear-gradient(transparent 70%, #a7d6ff 70%);
 }

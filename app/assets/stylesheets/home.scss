@@ -2,6 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+.top-image{
+  height: 400px;
+  width: 100%;
+}
+
+.image1 {
+  background-image: url(image1.jpg);
+}
+
+.image2 {
+  background-image: url(image2.jpg);
+}
+
+.image3 {
+  background-image: url(image3.jpg);
+}
+
 .new-rounds{
   margin-top: 40px;
 }
@@ -21,9 +39,13 @@
 }
 
 .user-item:first-child{
-  margin-left: 30px;
+  margin-left: 20px;
 }
 
 .user-item:nth-last-child(-n+3){
-  margin-left: 50px;
+  margin-left: 30px;
+}
+
+.user-item:last-child{
+  margin-bottom: 50px;
 }

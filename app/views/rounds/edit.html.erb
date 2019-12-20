@@ -1,2 +1,67 @@
-<h1>Rounds#edit</h1>
-<p>Find me in app/views/rounds/edit.html.erb</p>
+<h3 class="heading">主催ラウンド編集</h3>
+
+<%= form_for(@round) do |f| %>
+
+  <div class="field">
+    <%= f.label :"日程" %><br />
+    <%= f.date_field :round_date, selected: Date.today %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"開催都道府県" %><br />
+        <%= f.collection_select(:prefecture_id, @prefecture, :id, :pref_name, {prompt: "選択してください"}) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"募集性別" %><br />
+    <%= f.select :recruitment_sex, [["どちらでも",2],["男性",0],["女性",1]], prompt: "選択してください" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"定員" %><br />
+    <%= f.number_field :capacity, min: 2, max: 100 %>
+  </div>
+
+  <%= f.fields_for :map do |m| %>
+    <div class="field">
+      <%= m.label :"コース" %><br />
+      <%= m.text_field :place, size: 50, autofocus: true, id:"place-search", placeholder:"ゴルフ場名を入力"  %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :"タイトル" %><br />
+    <%= f.text_field :round_title, size: 50,autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"詳細" %><br />
+    <%= f.text_area :round_intro, size: "80x10"  %>
+  </div>
+
+   <div class="actions">
+    <%= f.submit "更新", class:"btn btn-primary" %>
+  </div>
+
+  <div>
+    <%= link_to "ラウンド削除", round_path(@round), method: :delete, class:"btn btn-danger", "data-confirm" => "本当に削除しますか？この操作は取り消せません。" %>
+  </div>
+<% end %>
+
+<script>
+function initMap() {
+
+  var input = /** @type {!HTMLInputElement} */(
+    document.getElementById('place-search'));
+  hoge = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: {country: 'jp'},
+    types: ['establishment'],
+  });
+  hoge.addListener('place_changed', function() {
+    input.value = this.getPlace().name;
+  });
+
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&libraries=places&callback=initMap"
+            async defer></script>

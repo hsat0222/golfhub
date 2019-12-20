@@ -3,43 +3,94 @@
 <%= form_for(@round) do |f| %>
 
   <div class="field">
-    <%= f.label :"日程（必須）" %><br />
+    <%= f.label :"日程" %><br />
     <%= f.date_field :round_date, selected: Date.today %>
   </div>
 
   <div class="field">
-    <%= f.label :"開催都道府県（必須）" %><br />
+    <%= f.label :"開催都道府県" %><br />
         <%= f.collection_select(:prefecture_id, @prefecture, :id, :pref_name, {prompt: "選択してください"}) %>
   </div>
 
   <div class="field">
-    <%= f.label :"募集性別（必須）" %><br />
+    <%= f.label :"募集性別" %><br />
     <%= f.select :recruitment_sex, [["どちらでも",2],["男性",0],["女性",1]], prompt: "選択してください" %>
   </div>
 
   <div class="field">
-    <%= f.label :"定員（必須）" %><br />
-    <%= f.number_field :capacity, min: 4, max: 100 %>
+    <%= f.label :"定員" %><br />
+    <%= f.number_field :capacity, min: 2, max: 100 %>
   </div>
 
   <%= f.fields_for :map do |m| %>
     <div class="field">
-      <%= m.label :"コース（必須）" %><br />
-      <%= m.text_field :place, size: 50, autofocus: true %>
+      <%= m.label :"コース" %><br />
+      <%= m.text_field :place, size: 50, autofocus: true, id:"place-search", placeholder:"ゴルフ場名を入力" %>
+  <!--     <button id="search">検索</button> -->
     </div>
+    <!-- <div id='map'></div> -->
   <% end %>
 
   <div class="field">
-    <%= f.label :"タイトル（必須）" %><br />
-    <%= f.text_field :round_title, size: 50,autofocus: true %>
+    <%= f.label :"タイトル" %><br />
+    <%= f.text_field :round_title, size: 50,autofocus: true, placeholder:"５〜３０文字" %>
   </div>
 
   <div class="field">
-    <%= f.label :"詳細（必須）" %><br />
+    <%= f.label :"詳細" %><br />
     <%= f.text_area :round_intro, size: "80x10"  %>
   </div>
 
    <div class="actions">
-    <%= f.submit "作成する" %>
+    <%= f.submit "作成する", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<style>
+#map{
+  height: 400px;
+}
+</style>
+
+<script>
+function initMap() {
+    //対応させるテキストボックス
+  // var map = new google.maps.Map(document.getElementById('map'), {
+  //   center: {lat: 35.659024, lng: 139.703498},
+  //   zoom: 15
+  // });
+  var input = /** @type {!HTMLInputElement} */(
+    document.getElementById('place-search'));
+  hoge = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: {country: 'jp'},
+    types: ['establishment'],
+  });
+  hoge.addListener('place_changed', function() {
+    input.value = this.getPlace().name;
+  });
+
+  // var geocoder = new google.maps.Geocoder();
+  // document.getElementById('search').addEventListener('click',function(){
+  //   geocoder.geocode({
+  //     place: docmet.getElementById('place').value
+  //   },function(results, status){
+  //     if (status !== 'OK'){
+  //       alert('Faild:' + status);
+  //       return;
+  //     }
+  //     if(results[0]){
+  //       new google.maps.Map(map,{
+  //         center: results[0].geometry.location,
+  //         zoom: 15
+  //       });
+  //     }else{
+  //       alert('No results found');
+  //       return;
+  //     }
+  //   });
+  // });
+
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&libraries=places&callback=initMap"
+            async defer></script>
