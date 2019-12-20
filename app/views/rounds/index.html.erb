@@ -9,18 +9,18 @@
 <div class="round-search">
   <div>絞り込み検索</div>
   <%= form_tag({controller: "rounds", action: "search" }, {method: "get"}) do %>
-    <%= select_tag(:region_id, options_from_collection_for_select(@regions, :id, :region_name)) %>
+    <%= select_tag(:region_id, options_from_collection_for_select(@regions, :id, :region_name, params[:region_id])) %>
     <%= select_tag(:round_date, options_for_select([["#{Date.current.strftime("%m月")}", "#{Date.current.strftime("20%y-%m")}"],
                                                     ["#{Date.current.next_month(1).strftime("%m月")}", "#{Date.current.next_month(1).strftime("20%y-%m")}"],
                                                     ["#{Date.current.next_month(2).strftime("%m月")}", "#{Date.current.next_month(2).strftime("20%y-%m")}"]
-                                                    ])) %>
+                                                    ], :selected => params[:round_date])) %>
     <%= submit_tag "検索" %>
   <% end %>
 
-  <div>並び替え</div>
-    <%= link_to "開催日順", sort_rounds_path(sort_type: '1') %>
-    <%= link_to "　新着順", sort_rounds_path(sort_type: '2') %>
-</div>
+<!--   <div>並び替え</div>
+    link_to "開催日順", sort_rounds_path(sort_type: '1')
+    link_to "　新着順", sort_rounds_path(sort_type: '2')
+ --></div>
 
 <!--ラウンド一覧情報-->
 <div class="round-index">
@@ -59,10 +59,10 @@
       <div>
         <%= "主催者　：" + round.users_rounds.first.user.user_name %>
       </div>
-      <div class="col-sm-2 col-xs-2">
+      <div class="index-intro-title">
         内　容：
       </div>
-      <div class="col-sm-10 col-xs-10">
+      <div class="index-intro-text">
         <%= round.round_intro.truncate(50, omission: '...') %>
       </div>
     </div>

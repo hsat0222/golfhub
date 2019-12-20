@@ -11,6 +11,9 @@
 Region.create!(
   [
     {
+        region_name: "全て",
+    },
+    {
         region_name: "東北・北海道",
     },
     {
@@ -41,195 +44,195 @@ Prefecture.create!(
   [
     {
         pref_name: "北海道",
-        region_id: "1",
+        region_id: "2",
     },
     {
         pref_name: "青森県",
-        region_id: "1",
+        region_id: "2",
     },
     {
         pref_name: "岩手県",
-        region_id: "1",
+        region_id: "2",
     },
     {
         pref_name: "秋田県",
-        region_id: "1",
+        region_id: "2",
     },
     {
         pref_name: "宮城県",
-        region_id: "1",
+        region_id: "2",
     },
     {
         pref_name: "山形県",
-        region_id: "1",
+        region_id: "2",
     },
     {
         pref_name: "福島県",
-        region_id: "1",
+        region_id: "2",
     },
     {
         pref_name: "茨城県",
-        region_id: "2",
+        region_id: "3",
     },
     {
         pref_name: "栃木県",
-        region_id: "2",
+        region_id: "3",
     },
     {
         pref_name: "群馬県",
-        region_id: "2",
+        region_id: "3",
     },
     {
         pref_name: "千葉県",
-        region_id: "2",
+        region_id: "3",
     },
     {
         pref_name: "東京都",
-        region_id: "2",
+        region_id: "3",
     },
     {
         pref_name: "神奈川県",
-        region_id: "2",
+        region_id: "3",
     },
     {
         pref_name: "山梨県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "長野県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "新潟県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "富山県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "石川県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "福井県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "静岡県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "愛知県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "岐阜県",
-        region_id: "3",
+        region_id: "4",
     },
     {
         pref_name: "三重県",
-        region_id: "4",
+        region_id: "5",
     },
     {
         pref_name: "滋賀県",
-        region_id: "4",
+        region_id: "5",
     },
     {
         pref_name: "京都府",
-        region_id: "4",
+        region_id: "5",
     },
     {
         pref_name: "大阪府",
-        region_id: "4",
+        region_id: "5",
     },
     {
         pref_name: "兵庫県",
-        region_id: "4",
+        region_id: "5",
     },
     {
         pref_name: "奈良県",
-        region_id: "4",
+        region_id: "5",
     },
     {
         pref_name: "和歌山県",
-        region_id: "4",
-    },
-    {
-        pref_name: "鳥取県",
         region_id: "5",
     },
     {
         pref_name: "鳥取県",
-        region_id: "5",
+        region_id: "6",
+    },
+    {
+        pref_name: "鳥取県",
+        region_id: "6",
     },
     {
         pref_name: "島根県",
-        region_id: "5",
+        region_id: "6",
     },
     {
         pref_name: "岡山県",
-        region_id: "5",
+        region_id: "6",
     },
     {
         pref_name: "広島県",
-        region_id: "5",
+        region_id: "6",
     },
     {
         pref_name: "山口県",
-        region_id: "5",
+        region_id: "6",
     },
     {
         pref_name: "香川県",
-        region_id: "6",
+        region_id: "7",
     },
     {
         pref_name: "愛媛県",
-        region_id: "6",
+        region_id: "7",
     },
     {
         pref_name: "徳島県",
-        region_id: "6",
+        region_id: "7",
     },
     {
         pref_name: "高知県",
-        region_id: "6",
+        region_id: "7",
     },
     {
         pref_name: "福岡県",
-        region_id: "7",
+        region_id: "8",
     },
     {
         pref_name: "佐賀県",
-        region_id: "7",
+        region_id: "8",
     },
     {
         pref_name: "長崎県",
-        region_id: "7",
+        region_id: "8",
     },
     {
         pref_name: "熊本県",
-        region_id: "7",
+        region_id: "8",
     },
     {
         pref_name: "大分県",
-        region_id: "7",
+        region_id: "8",
     },
     {
         pref_name: "宮崎県",
-        region_id: "7",
+        region_id: "8",
     },
     {
         pref_name: "鹿児島県",
-        region_id: "7",
+        region_id: "8",
     },
     {
         pref_name: "沖縄県",
-        region_id: "7",
+        region_id: "8",
     },
     {
         pref_name: "その他",
-        region_id: "8",
+        region_id: "9",
     }
   ]
 )
@@ -273,7 +276,7 @@ Round.create!(
     {
       prefecture_id: "6",
       round_title: "打ち納めコンペ",
-      round_date: "2019-12-20",
+      round_date: "2019-12-25",
       capacity: "80",
       map_id: "2",
       round_intro: "・・・・",
@@ -291,7 +294,7 @@ Round.create!(
     {
       prefecture_id: "20",
       round_title: "どなたでも大歓迎！",
-      round_date: "2019-12-18",
+      round_date: "2019-12-24",
       capacity: "4",
       map_id: "1",
       round_intro: "4ラウンド紹介4",

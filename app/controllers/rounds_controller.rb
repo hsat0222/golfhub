@@ -17,21 +17,29 @@ class RoundsController < ApplicationController
   end
 
   def search
+    if params[:region_id] == '9'
+    r_d = params[:round_date] + '-01'
+    r_d = r_d.to_date
+    @rounds = Round.where(round_date: r_d.beginning_of_month..r_d.end_of_month)
+    @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
+    @regions = Region.all
+    else
     @rounds = Round.joins(prefecture: :region).select("rounds.*").where("region_id LIKE ? AND round_date LIKE ?","%#{params[:region_id]}%","%#{params[:round_date]}%")
     @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
     @regions = Region.all
+    end
     render :index
   end
 
   def sort
     if params[:sort_type] == "1"
-    @rounds = Round.where("round_date > ?", Date.current).order('round_date ASC').page(params[:page]).per(10)
-    @regions = Region.all
-    render :index
+      @rounds = Round.where("round_date > ?", Date.current).order('round_date ASC').page(params[:page]).per(10)
+      @regions = Region.all
+      render :index
     elsif params[:sort_type] == "2"
-    @rounds = Round.where("round_date > ?", Date.current).order('id ASC').page(params[:page]).per(10)
-    @regions = Region.all
-    render :index
+      @rounds = Round.where("round_date > ?", Date.current).order('id ASC').page(params[:page]).per(10)
+      @regions = Region.all
+      render :index
     end
   end
 
@@ -72,6 +80,7 @@ class RoundsController < ApplicationController
     if  @round.save
     redirect_to round_path(@round)
     else
+    @prefecture = Prefecture.all
     render :new
     end
   end
@@ -93,6 +102,7 @@ class RoundsController < ApplicationController
     if @round.update(round_params)
     redirect_to round_path(@round)
     else
+    @prefecture = Prefecture.all
     render :edit
     end
   end
@@ -146,7 +156,7 @@ class RoundsController < ApplicationController
     round = Round.find(params[:id])
     master = round.users_rounds.first
     if current_user != master.user
-    redirect_to round_path(round)
+      redirect_to round_path(round)
     end
   end
 
