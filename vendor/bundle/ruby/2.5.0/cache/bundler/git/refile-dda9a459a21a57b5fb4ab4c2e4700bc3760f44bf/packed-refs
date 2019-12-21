@@ -1,4 +1,4 @@
-# pack-refs with: peeled fully-peeled sorted 
+# pack-refs with: peeled fully-peeled 
 83837e7ee09652ff94ca15b8a8ea34adf994d7a9 refs/heads/close-file-descriptors
 4802b67edcaf2d4d4e6bd98ef79c2b05d75c709b refs/heads/fix-metadata-field-association
 46b4178654e60bb5846b1423acf6d0740cdecc25 refs/heads/master
