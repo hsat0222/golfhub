@@ -18,15 +18,15 @@ class RoundsController < ApplicationController
 
   def search
     if params[:region_id] == '9'
-    r_d = params[:round_date] + '-01'
-    r_d = r_d.to_date
-    @rounds = Round.where(round_date: r_d.beginning_of_month..r_d.end_of_month)
-    @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
-    @regions = Region.all
+      r_d = params[:round_date] + '-01'
+      r_d = r_d.to_date
+      @rounds = Round.where(round_date: r_d.beginning_of_month..r_d.end_of_month)
+      @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
+      @regions = Region.all
     else
-    @rounds = Round.joins(prefecture: :region).select("rounds.*").where("region_id LIKE ? AND round_date LIKE ?","%#{params[:region_id]}%","%#{params[:round_date]}%")
-    @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
-    @regions = Region.all
+      @rounds = Round.joins(prefecture: :region).select("rounds.*").where("region_id LIKE ? AND round_date LIKE ?","%#{params[:region_id]}%","%#{params[:round_date]}%")
+      @rounds = Kaminari.paginate_array(@rounds).page(params[:page]).per(10)
+      @regions = Region.all
     end
     render :index
   end
@@ -47,8 +47,8 @@ class RoundsController < ApplicationController
     @round = Round.find(params[:id])
     @master = @round.users_rounds.first
     if user_signed_in?
-    @user_round = UsersRound.where(user_id: current_user.id).where(round_id: @round.id)
-    @member = UsersRound.where(user_id: current_user.id).where(round_id: @round.id).where(approval_flag: "1")
+      @user_round = UsersRound.where(user_id: current_user.id).where(round_id: @round.id)
+      @member = UsersRound.where(user_id: current_user.id).where(round_id: @round.id).where(approval_flag: "1")
     end
     @comments = Comment.where(round_id: @round.id).order('id DESC')
     @members = UsersRound.where(round_id: @round.id).where(approval_flag: "1")
@@ -72,16 +72,16 @@ class RoundsController < ApplicationController
     @round = Round.new(round_params)
     @map = Map.find_by(place: params[:round][:map_attributes][:place])
     if @map
-    @round.map_id = @map.id
+      @round.map_id = @map.id
     else
-    @round.build_map(place: params[:round][:map_attributes][:place])
+     @round.build_map(place: params[:round][:map_attributes][:place])
     end
     @round.users_rounds.build([{user_id: current_user.id, approval_flag: 1}])
     if  @round.save
-    redirect_to round_path(@round)
+      redirect_to round_path(@round)
     else
-    @prefecture = Prefecture.all
-    render :new
+      @prefecture = Prefecture.all
+      render :new
     end
   end
 
@@ -95,15 +95,15 @@ class RoundsController < ApplicationController
     @round = Round.find(params[:id])
     @map = Map.find_by(place: params[:round][:map_attributes][:place])
     if @map
-    @round.map_id = @map.id
+      @round.map_id = @map.id
     else
-    @round.build_map(place: params[:round][:map_attributes][:place])
+      @round.build_map(place: params[:round][:map_attributes][:place])
     end
     if @round.update(round_params)
-    redirect_to round_path(@round)
+      redirect_to round_path(@round)
     else
-    @prefecture = Prefecture.all
-    render :edit
+      @prefecture = Prefecture.all
+      render :edit
     end
   end
 

@@ -23,16 +23,16 @@
               <li><%= link_to "Golfhubとは？", about_path, class: "btn btn-default navbar-btn" %></li>
               <li><%= link_to "ラウンド募集", rounds_path, class: "btn btn-default navbar-btn" %></li>
               <% if user_signed_in? %>
-              <li>
-                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-default navbar-btn" %>
-              </li>
+                <li>
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-default navbar-btn" %>
+                </li>
               <% else %>
-              <li>
-                <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success navbar-btn" %>
-              </li>
-              <li>
-                <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary navbar-btn" %>
-              </li>
+                <li>
+                  <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success navbar-btn" %>
+                </li>
+                <li>
+                  <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary navbar-btn" %>
+                </li>
               <% end %>
             </ul>
           </div>
@@ -45,13 +45,13 @@
         <div id="sidebar" class="col-sm-2 col-sm-offset-1 col-xs-2 col-xs-offset-1">
           <div class="mymenu-title">マイメニュー</div>
           <% if user_signed_in? %>
-          <div class="mymenu-item"><%= link_to "マイページ", user_path(current_user.id) %></div>
-          <div class="mymenu-item"><%= link_to "ラウンド予定", myrounds_path %></div>
-          <div class="mymenu-item"><%= link_to "ラウンド履歴", history_path %></div>
+            <div class="mymenu-item"><%= link_to "マイページ", user_path(current_user.id) %></div>
+            <div class="mymenu-item"><%= link_to "ラウンド予定", myrounds_path %></div>
+            <div class="mymenu-item"><%= link_to "ラウンド履歴", history_path %></div>
           <% else %>
-          <div class="mymenu-item">
-            <%= link_to "ログイン", new_user_session_path %>
-          </div>
+            <div class="mymenu-item">
+              <%= link_to "ログイン", new_user_session_path %>
+            </div>
           <% end %>
         </div>
 

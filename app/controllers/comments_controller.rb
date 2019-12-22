@@ -8,9 +8,9 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.round_id = params[:id]
     if  @comment.save
-    redirect_to round_path(Round.find(params[:id]))
+      redirect_to round_path(Round.find(params[:id]))
     else
-    render :new
+      render :new
     end
   end
 
