@@ -31,3 +31,5 @@
 /config/master.key
 
 /.env
+
+/vendor/bundle/ruby/2.5.0/bundler/gems
