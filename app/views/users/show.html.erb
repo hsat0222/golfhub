@@ -1,15 +1,19 @@
+<% if user_signed_in? %>
 <% if @user.id == current_user.id %>
 <h3 class="my-heading">マイプロフィール</h3>
 <% else %>
 <h3 class="heading">プロフィール</h3>
 <% end %>
+<% end %>
 
 <!--　プロフィール編集リンク　-->
 <div>
+  <% if user_signed_in? %>
   <% if @user.id == current_user.id %>
   <%= link_to "プロフィール編集", edit_user_registration_path, class:"btn btn-default" %>
   <!-- else -->
   <!-- link_to "メッセージを送る", user_messages_path(@user.id), class:"btn" -->
+  <% end %>
   <% end %>
 </div>
 
@@ -31,92 +35,94 @@
           <%= @user.user_name %>
         </td>
       </tr>
+    <% if user_signed_in? %>
     <% if @user.id == current_user.id %>
-    <tr>
-      <td>
-        <th>
-          メールアドレス：<br />
-          （自分のみ表示）
-        </th>
-      </td>
-      <td>
-        <%= @user.email %>
-      </td>
-    </tr>
-    <% end %>
-    <tr>
-      <td>
-        <th>
-          年齢：
-        </th>
-      </td>
-      <td>
-        <%= @user.age %>
-      </td>
-    </tr>
-    <%if @user.user_sex == 0 %>
-    <tr>
-      <td>
-        <th>
-          性別：
-        </th>
-      </td>
-      <td>
-        男性
-      </td>
-    </tr>
-    <% else %>
-    <tr>
-      <td>
-        <th>
-          性別：
-        </th>
-      </td>
-      <td>
-        女性
-      </td>
-    </tr>
-    <% end %>
-    <tr>
-      <td>
-        <th>
-          お住まい：
-        </th>
-      </td>
-      <td>
-        <%= @user.prefecture.pref_name %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <th>
-          ゴルフ歴：
-       </th>
-      </td>
-      <td>
-        <%= @user.exp_golf %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <th>
-          平均スコア：
-        </th>
-      </td>
-      <td>
-        <%= @user.av_score %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <th>
-          ご職業：
-        </th>
-      </td>
-      <td>
-        <%= @user.user_job %>
-      </td>
-    </tr>
+      <tr>
+        <td>
+          <th>
+            メールアドレス：<br />
+            （自分のみ表示）
+          </th>
+        </td>
+        <td>
+          <%= @user.email %>
+        </td>
+      </tr>
+      <% end %>
+      <% end %>
+      <tr>
+        <td>
+          <th>
+            年齢：
+          </th>
+        </td>
+        <td>
+          <%= @user.age %>
+        </td>
+      </tr>
+      <%if @user.user_sex == 0 %>
+      <tr>
+        <td>
+          <th>
+            性別：
+          </th>
+        </td>
+        <td>
+          男性
+        </td>
+      </tr>
+      <% else %>
+      <tr>
+        <td>
+          <th>
+            性別：
+          </th>
+        </td>
+        <td>
+          女性
+        </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td>
+          <th>
+            お住まい：
+          </th>
+        </td>
+        <td>
+          <%= @user.prefecture.pref_name %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <th>
+            ゴルフ歴：
+         </th>
+        </td>
+        <td>
+          <%= @user.exp_golf %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <th>
+            平均スコア：
+          </th>
+        </td>
+        <td>
+          <%= @user.av_score %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <th>
+            ご職業：
+          </th>
+        </td>
+        <td>
+          <%= @user.user_job %>
+        </td>
+      </tr>
     </table>
       <div class="user-intro">紹介コメント</div>
     <span>
