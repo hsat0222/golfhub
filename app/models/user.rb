@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :users_rounds
   belongs_to :prefecture
 
+  has_many :entries, dependent: :destroy
+  has_many :messages, dependent: :destroy
+
   attachment :user_image
 
   validates :user_name, presence: true, uniqueness: true

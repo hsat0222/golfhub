@@ -48,6 +48,7 @@
             <div class="mymenu-item"><%= link_to "マイページ", user_path(current_user.id) %></div>
             <div class="mymenu-item"><%= link_to "ラウンド予定", myrounds_path %></div>
             <div class="mymenu-item"><%= link_to "ラウンド履歴", history_path %></div>
+            <div class="mymenu-item"><%= link_to "メッセージ", myrooms_path(current_user.id) %></div>
           <% else %>
             <div class="mymenu-item">
               <%= link_to "ログイン", new_user_session_path %>

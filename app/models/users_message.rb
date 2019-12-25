@@ -1,2 +1,0 @@
-class UsersMessage < ApplicationRecord
-end

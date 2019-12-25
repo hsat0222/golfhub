@@ -431,6 +431,28 @@ Comment.create!(
       user_id: "2",
       round_id: "1",
       comment: "はじめまして、イチローです",
+    }
+  ]
+)
+
+Room.create!(
+  [
+    {
     },
+    {
+    }
+  ]
+)
+
+Entry.create!(
+  [
+    {
+      user_id: "1",
+      room_id: "1",
+    },
+    {
+      user_id: "2",
+      room_id: "1",
+    }
   ]
 )

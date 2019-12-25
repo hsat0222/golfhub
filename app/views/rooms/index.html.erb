@@ -1,0 +1,5 @@
+<h3 class="my-heading">メッセージ</h3>
+
+<% @entries.each do |entry| %>
+  <%= link_to "chat", room_path(entry.id) %>
+<% end %>

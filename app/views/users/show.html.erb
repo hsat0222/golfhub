@@ -10,9 +10,21 @@
 <div>
   <% if user_signed_in? %>
     <% if @user.id == current_user.id %>
-      <%= link_to "プロフィール編集", edit_user_registration_path, class:"btn btn-default" %>
-      <!-- else -->
-      <!-- link_to "メッセージを送る", user_messages_path(@user.id), class:"btn" -->
+      <%= link_to "プロフィール編集", edit_user_registration_path, class: "btn btn-default" %>
+    <% end %>
+    <% unless @user.id == current_user.id %>
+      <!-- if (current_user.followed_by? @user) && (@user.followed_by? current_user)  %> -->
+        <% if @isRoom == true %>
+          <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">メッセージを送る</a>
+        <% else %>
+          <%= form_for @room do |f| %>
+            <%= fields_for @entry do |e| %>
+              <%= e.hidden_field :user_id, value: @user.id %>
+            <% end %>
+            <%= f.submit "メッセージを送る", class:"btn btn-primary btn-lg user-show-chat"%>
+          <% end %>
+        <% end %>
+       <!-- end %> -->
     <% end %>
   <% end %>
 </div>
