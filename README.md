@@ -1,24 +1,35 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## ツール・ライブラリの名称
+「Golf hub」・・・ゴルフを通じて、人と人が繋がって欲しい(hub)という思いを込めてこのサイト名にしました。
 
-Things you may want to cover:
 
-* Ruby version
+## サイト概要
+ラウンドの募集など、サイトの利用者同士の交流ができるゴルフ専門のSNSです
 
-* System dependencies
+## デプロイURL
+http://3.114.101.221/
 
-* Configuration
+## スチール
+<img width="1440" alt="golfhub15 09 52" src="https://user-images.githubusercontent.com/55868403/71874670-d5fff200-3165-11ea-9984-b22f5b8a41da.png">
 
-* Database creation
+## 機能
+* ラウンド募集
+>主催者
+>>参加者管理
+>>コメント掲示板
+>>情報修正
+>参加者
+>>コメント掲示板
 
-* Database initialization
+## 使い方
+1. ヘッダー部ボタンにて、新規登録もしくはログインを行います。
+2. ヘッダー部ラウンド募集ボタンにてラウンド一覧が表示されます。
+一覧画面上部の主催ボタンでラウンドの主催、もしくは詳細画面にて他ラウンドに参加することが可能です。
+3. 主催者の参加承認後にラウンド掲示板でのやりとりが可能となります。
 
-* How to run the test suite
+## 作成したきっかけ
+ゴルフは老若男女、多くの層が楽しめる生涯スポーツです。
+しかしゴルフ未経験の方から、ゴルフは道具が高い、お金持ちの人がやっているイメージで敷居が高そうとよく耳にします。
+そういった中で、ゴルフを通じ多くの人同士に繋がってもらい、ゴルフを楽しんでもらうことに貢献したいと考え作成に至りました。
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
