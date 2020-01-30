@@ -35,9 +35,9 @@ Rails.application.routes.draw do
   get '/history', to: 'rounds#history'
   get '/search/rounds', to: 'rounds#search'
   get '/sort/rounds', to: 'rounds#sort'
-  post '/rounds/:id', to: 'rounds#apply', as: 'apply_round'
-  patch '/rounds/:id', to: 'rounds#approval', as: 'approval_round'
-  delete '/rounds/:id', to: 'rounds#refuse', as: 'refuse_round'
+  post '/round/:id', to: 'rounds#apply', as: 'apply_round'
+  patch '/round/:id', to: 'rounds#approval', as: 'approval_round'
+  delete '/round/:id', to: 'rounds#refuse', as: 'refuse_round'
   resources :rounds
   get '/maprequest', to: 'rounds#map', as: 'map_request'
   #comments controller

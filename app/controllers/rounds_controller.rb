@@ -50,6 +50,7 @@ class RoundsController < ApplicationController
       @user_round = UsersRound.where(user_id: current_user.id).where(round_id: @round.id)
       @member = UsersRound.where(user_id: current_user.id).where(round_id: @round.id).where(approval_flag: "1")
     end
+    @comment = Comment.new
     @comments = Comment.where(round_id: @round.id).order('id DESC')
     @members = UsersRound.where(round_id: @round.id).where(approval_flag: "1")
     @apply = UsersRound.where(round_id: @round.id).where(approval_flag: "0")

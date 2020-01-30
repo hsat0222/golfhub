@@ -1,8 +1,16 @@
 class RoomsController < ApplicationController
+
   before_action :authenticate_user!
 
   def index
-    @entries = Entry.where(user_id: current_user.id)
+    @user = current_user
+    @currentEntries = @user.entries
+    myRoomIds = []
+
+    @currentEntries.each do | entry |
+      myRoomIds << entry.room.id
+    end
+    @anotherEntries = Entry.where(room_id: myRoomIds).where('user_id != ?', @user.id)
   end
 
   def show
@@ -22,4 +30,5 @@ class RoomsController < ApplicationController
     @entry2 = Entry.create(params.require(:entry).permit(:user_id, :room_id).merge(room_id: @room.id))
     redirect_to "/rooms/#{@room.id}"
   end
+
 end

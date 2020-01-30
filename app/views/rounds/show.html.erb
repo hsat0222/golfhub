@@ -19,54 +19,24 @@
 
 <table class="table round-info">
   <tr>
-    <td>
-      <th>
-        タイトル
-      </th>
-    </td>
-    <td>
-      <%= @round.round_title %>
-    </td>
+    <td><th>タイトル</th></td>
+    <td><%= @round.round_title %></td>
   </tr>
   <tr>
-    <td>
-      <th>
-        主催者
-      </th>
-    </td>
-    <td>
-      <%= link_to @master.user.user_name, user_path(@master.user_id) %>
-    </td>
+    <td><th>主催者</th></td>
+    <td><%= link_to @master.user.user_name, user_path(@master.user_id) %></td>
   </tr>
   <tr>
-    <td>
-      <th>
-        開催日
-      </th>
-    </td>
-    <td>
-      <%= @round.round_date.strftime("20%y年%m月%d日") %>
-    </td>
+    <td><th>開催日</th></td>
+    <td><%= @round.round_date.strftime("20%y年%m月%d日") %></td>
   </tr>
   <tr>
-    <td>
-      <th>
-        場所
-      </th>
-    </td>
-    <td>
-      <%= @round.prefecture.pref_name %>
-    </td>
+    <td><th>場所</th></td>
+    <td><%= @round.prefecture.pref_name %></td>
   </tr>
   <tr>
-    <td>
-      <th>
-        コース名
-      </th>
-    </td>
-    <td>
-      <%= @round.map.place %>
-    </td>
+    <td><th>コース名</th></td>
+    <td><%= @round.map.place %></td>
   </tr>
 </table>
 
@@ -113,34 +83,16 @@
   <div id="round-comments" class="tab-pane">
     <% if @member.present? %>
       <span>
-        <%= link_to "新規投稿", new_comment_path(@round.id), class:"btn btn-primary" %>
+        <%= form_for @comment, url: comments_path, remote: true do |f| %>
+          <%= f.text_area :comment, size: "80x4" %>
+          <%= f.submit "投稿", class:"btn btn-primary" %>
+        <% end %>
       </span>
     <% end %>
-    <table class="table">
+    <table class="table comment-table">
       <% @comments.each do |c| %>
-        <div class="comments">
-          <tr class="active">
-            <th>
-              <span>
-                投稿者 ：<%= link_to c.user.user_name, user_path(c.user_id) %>
-              </span>
-              <span>
-                <%= c.created_at.strftime("20%y/%m/%d %H:%M") %>
-              </span>
-              <% if user_signed_in? %>
-                <% if c.user_id == current_user.id %>
-                  <sapn>
-                    <%= link_to "削除", comment_path(c.id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
-                  </span>
-                <% end %>
-              <% end %>
-            </th>
-          </tr>
-          <tr>
-            <td>
-              <%= simple_format(c.comment) %>
-            </td>
-          </tr>
+        <div id="comment">
+          <%= render partial: 'rounds/comment', locals: {c: c} %>
         </div>
       <% end %>
     </table>

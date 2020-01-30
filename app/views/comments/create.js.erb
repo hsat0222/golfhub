@@ -1,0 +1,3 @@
+$('textarea').val('');
+$('input').val('');
+$('#comment').append("<%= j(render partial: 'rounds/comment', locals: {c: c}) %>");

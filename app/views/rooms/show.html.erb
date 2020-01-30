@@ -1,21 +1,23 @@
+<h3 class="my-heading">メッセージ</h3>
 
 <div class="left-button">
-  <%= link_to "ユーザー一覧に戻る", "/users/index", class:"edit-link" %>
+  <%= link_to "メッセージ一覧", myrooms_path(current_user.id), class:"btn btn-default" %>
 </div>
-<h4 class="rooms-title">メッセージ</h4>
 <% @entries.each do |e| %>
   <div class="user-name">
+  <% unless current_user.id == e.user.id %>
   <strong>
     <%= image_tag e.user.user_image_id, class:"user-image" %>
       <a class="rooms-user-link" href="/users/<%= e.user.id %>">
-        <%= e.user.user_name %>さん
+        <%= e.user.user_name %>
       </a>
+  <% end %>
   </strong>
   </div>
 <% end %>
 <hr>
 <div class="chats">
-  <div class="chat">
+  <div id="chat" class="chat">
     <% if @messages.present? %>
       <% @messages.each do |m| %>
         <div class="chat-box">
@@ -23,7 +25,7 @@
           <div class="chat-face">
             <!-- attachment_image_tag m.user, :user_image, :fill, 150, 150, format: 'jpeg', fallback: "no_image.jpg", size:'150x150' %> -->
           </div>
-          <div class="chat-hukidashi"> <%= m.content %><br>
+          <div class="chat-hukidashi"><%= render 'message',m: m %><br>
             <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
           </div>
         </div>
@@ -32,9 +34,15 @@
   </div>
   <div class="posts">
     <%= form_for @message do |f| %>
-      <%= f.text_field :content, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-text-field" %>
+      <%= f.text_field :content, placeholder: "メッセージを入力して下さい" , size: 70, id: "message", class: "form-text-field" %>
         <%= f.hidden_field :room_id, value: @room.id %>
-          <%= f.submit "投稿",class: 'form-submit'%>
+          <%= f.submit "投稿", class: 'form-submit'%>
     <% end %>
   </div>
 </div>
+
+<script>
+  $(function(){
+    $(".chat").scrollTop($("#chat")[0].scrollHeight);
+  });
+</script>

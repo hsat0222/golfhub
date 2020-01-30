@@ -1,0 +1,23 @@
+
+  <tr class="active">
+    <th>
+      <span>
+        投稿者 ：<%= link_to c.user.user_name, user_path(c.user_id) %>
+      </span>
+      <span>
+        <%= c.created_at.strftime("20%y/%m/%d %H:%M") %>
+      </span>
+      <% if user_signed_in? %>
+        <% if c.user_id == current_user.id %>
+          <sapn>
+            <%= link_to "削除", comment_path(c.id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
+          </span>
+        <% end %>
+      <% end %>
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <%= simple_format(c.comment) %>
+    </td>
+  </tr>
